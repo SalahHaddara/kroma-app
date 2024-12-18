@@ -7,4 +7,11 @@ export const ThemeContext = createContext<ThemeContextType>({
     }
 });
 
+export const ThemeProvider: FC<{ children: ReactNode }> = ({children}) => {
 
+    return (
+        <ThemeContext.Provider value={{theme, toggleTheme}}>
+            {children}
+        </ThemeContext.Provider>
+    );
+};
