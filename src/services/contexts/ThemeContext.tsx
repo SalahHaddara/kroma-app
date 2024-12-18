@@ -18,6 +18,12 @@ export const ThemeProvider: FC<{ children: ReactNode }> = ({children}) => {
         }
     }, []);
 
+    const toggleTheme = () => {
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+        document.body.classList.toggle('light-mode');
+    };
 
     return (
         <ThemeContext.Provider value={{theme, toggleTheme}}>
