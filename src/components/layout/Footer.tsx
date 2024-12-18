@@ -1,4 +1,5 @@
 import {FC, useContext} from 'react';
+import {Link} from 'react-router-dom';
 import {ThemeContext} from '../../services/contexts/ThemeContext';
 import logo from "./../../assets/logo_NoText.svg";
 
@@ -16,7 +17,23 @@ const Footer: FC = () => {
                         © 2024 Design AI Hub. All rights reserved.
                     </span>
                 </div>
-
+                <div className="flex gap-6">
+                    <Link to="/about" className={`text-sm transition-colors duration-300 ${
+                        theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+                    }`}>
+                        About
+                    </Link>
+                    <Link to="/privacy" className={`text-sm transition-colors duration-300 ${
+                        theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+                    }`}>
+                        Privacy
+                    </Link>
+                    <Link to="/contact" className={`text-sm transition-colors duration-300 ${
+                        theme === 'dark' ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+                    }`}>
+                        Contact
+                    </Link>
+                </div>
             </div>
         </footer>
     );
