@@ -1,0 +1,35 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pink wave at bottom layer -->
+  <path 
+    d="M 20,80 
+       C 50,30 80,130 100,80
+       C 120,30 150,130 180,80" 
+    fill="none" 
+    stroke="#FF4D8D" 
+    stroke-width="20" 
+    stroke-linecap="round"
+    opacity="0.8"
+  />
+
+  <!-- Purple wave middle -->
+  <path 
+    d="M 20,100 
+       C 50,50 80,150 100,100
+       C 120,50 150,150 180,100" 
+    fill="none" 
+    stroke="#4A1FB3" 
+    stroke-width="20" 
+    stroke-linecap="round"
+  />
+  
+  <!-- Turquoise wave top with full opacity -->
+  <path 
+    d="M 20,120 
+       C 50,70 80,170 100,120
+       C 120,70 150,170 180,120" 
+    fill="none" 
+    stroke="#00C2A8" 
+    stroke-width="20" 
+    stroke-linecap="round"
+  />
+</svg>
