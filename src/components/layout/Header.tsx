@@ -24,7 +24,17 @@ const Header: FC = () => {
                 >
                     {theme === 'dark' ? <MdOutlineDarkMode size={20}/> : <MdOutlineLightMode size={20}/>}
                 </button>
-
+                <div className="flex gap-2">
+                    <button className={`px-4 py-2 rounded-lg transition-colors duration-300 ${
+                        theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-slate-900/10 hover:bg-slate-900/20'
+                    }`}>
+                        Log in
+                    </button>
+                    <button
+                        className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white transition-colors duration-300">
+                        Sign up
+                    </button>
+                </div>
             </div>
         </header>
     );
