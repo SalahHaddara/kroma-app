@@ -1,0 +1,26 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#1E293B" rx="20"/>
+  
+  <!-- Text prompt area -->
+  <rect x="50" y="40" width="500" height="60" rx="10" fill="#334155"/>
+  <circle cx="80" cy="70" r="15" fill="#10B981"/>
+  <rect x="110" y="60" width="200" height="20" rx="4" fill="#94A3B8"/>
+  
+  <!-- Generated moodboard grid -->
+  <rect x="50" y="120" width="240" height="120" rx="10" fill="#EC4899" opacity="0.8"/>
+  <rect x="310" y="120" width="240" height="120" rx="10" fill="#8B5CF6" opacity="0.8"/>
+  <rect x="50" y="260" width="240" height="120" rx="10" fill="#10B981" opacity="0.8"/>
+  <rect x="310" y="260" width="240" height="120" rx="10" fill="#6366F1" opacity="0.8"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="170" cy="180" r="30" fill="white" opacity="0.1"/>
+  <circle cx="430" cy="180" r="30" fill="white" opacity="0.1"/>
+  <circle cx="170" cy="320" r="30" fill="white" opacity="0.1"/>
+  <circle cx="430" cy="320" r="30" fill="white" opacity="0.1"/>
+  
+  <!-- Magic sparkles -->
+  <path d="M550,50 l5,-5 l5,5 l-5,5 z" fill="#FFD700"/>
+  <path d="M530,70 l5,-5 l5,5 l-5,5 z" fill="#FFD700"/>
+  <path d="M560,80 l5,-5 l5,5 l-5,5 z" fill="#FFD700"/>
+</svg>

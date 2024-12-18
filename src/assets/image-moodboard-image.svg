@@ -1,0 +1,24 @@
+<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="600" height="400" fill="#1E293B" rx="20"/>
+
+    <!-- Source image -->
+    <rect x="50" y="40" width="200" height="320" rx="10" fill="#EC4899" opacity="0.8"/>
+    <circle cx="150" cy="200" r="50" fill="white" opacity="0.1"/>
+    <path d="M120,170 L180,230 M180,170 L120,230" stroke="white" stroke-width="4" opacity="0.2"/>
+
+    <!-- Arrow -->
+    <path d="M280,200 L320,200 M310,190 L320,200 L310,210" stroke="#94A3B8" stroke-width="4" fill="none"/>
+
+    <!-- Generated palette and elements - with even spacing -->
+    <rect x="350" y="40" width="200" height="70" rx="10" fill="#EC4899" opacity="0.8"/>
+    <rect x="350" y="120" width="200" height="70" rx="10" fill="#8B5CF6" opacity="0.8"/>
+    <rect x="350" y="200" width="200" height="70" rx="10" fill="#10B981" opacity="0.8"/>
+    <rect x="350" y="280" width="200" height="70" rx="10" fill="#6366F1" opacity="0.8"/>
+
+    <!-- Decorative circles - adjusted to match new spacing -->
+    <circle cx="450" cy="75" r="20" fill="white" opacity="0.1"/>
+    <circle cx="450" cy="155" r="20" fill="white" opacity="0.1"/>
+    <circle cx="450" cy="235" r="20" fill="white" opacity="0.1"/>
+    <circle cx="450" cy="315" r="20" fill="white" opacity="0.1"/>
+</svg>
