@@ -8,6 +8,16 @@ export const ThemeContext = createContext<ThemeContextType>({
 });
 
 export const ThemeProvider: FC<{ children: ReactNode }> = ({children}) => {
+    const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            setTheme('light');
+            document.body.classList.add('light-mode');
+        }
+    }, []);
+
 
     return (
         <ThemeContext.Provider value={{theme, toggleTheme}}>
