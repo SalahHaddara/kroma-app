@@ -1,6 +1,8 @@
 import {FC, useContext} from 'react';
 import {ThemeContext} from '../services/contexts/ThemeContext';
+import FeatureCard from '../components/FeatureCard';
 import {Feature} from '../types/interfaces';
+
 import promptMoodboardDark from '../assets/prompt-moodboard-image.svg';
 import promptMoodboardLight from '../assets/prompt-moodboard-image-2.svg';
 import imageMoodboardDark from '../assets/image-moodboard-image.svg';
@@ -77,7 +79,7 @@ const Home: FC = () => {
                             Harness the power of AI to create stunning moodboards and enhance your designs instantly
                         </p>
                         <a
-                            href="#"
+                            href="#features"
                             className={`inline-flex px-6 py-3 rounded-lg transition-colors duration-300 animate-[bounce_3s_ease-in-out_infinite] ${
                                 theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-slate-900/10 hover:bg-slate-900/20'
                             }`}
@@ -87,6 +89,17 @@ const Home: FC = () => {
                     </div>
                 </section>
 
+                {/* Features Section */}
+                <section id="features" className="py-24 px-4 sm:px-8 max-w-7xl mx-auto">
+                    {features.map((feature, index) => (
+                        <FeatureCard
+                            key={index}
+                            feature={feature}
+                            index={index}
+                            reverse={index % 2 === 1}
+                        />
+                    ))}
+                </section>
             </div>
         </div>
     );
