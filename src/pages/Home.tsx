@@ -64,7 +64,30 @@ const Home: FC = () => {
                 <div className="absolute inset-0 backdrop-blur-[100px]"/>
             </div>
 
+            <div className="relative z-10">
+                {/* Hero Section */}
+                <section className="min-h-screen flex items-center justify-center p-8 pt-20">
+                    <div className="text-center max-w-3xl">
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-emerald-500 via-pink-500 to-violet-500 bg-clip-text text-transparent">
+                            Transform Your Design Process
+                        </h1>
+                        <p className={`text-xl sm:text-2xl mb-8 transition-colors duration-300 ${
+                            theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                        }`}>
+                            Harness the power of AI to create stunning moodboards and enhance your designs instantly
+                        </p>
+                        <a
+                            href="#"
+                            className={`inline-flex px-6 py-3 rounded-lg transition-colors duration-300 animate-[bounce_3s_ease-in-out_infinite] ${
+                                theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-slate-900/10 hover:bg-slate-900/20'
+                            }`}
+                        >
+                            Explore Tools ↓
+                        </a>
+                    </div>
+                </section>
 
+            </div>
         </div>
     );
 };
