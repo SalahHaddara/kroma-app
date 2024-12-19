@@ -24,7 +24,21 @@ const FeatureCard: FC<FeatureCardProps> = ({feature, index, reverse}) => {
                     />
                 </div>
             </div>
+            <div className="flex-1 w-full lg:w-1/2">
+                <div
+                    className="w-16 h-16 rounded-full flex items-center justify-center text-2xl mb-6"
+                    style={{
+                        background: `rgba(${
+                            index === 0 ? '16,185,129' :
+                                index === 1 ? '236,72,153' :
+                                    '139,92,246'
+                        },0.2)`
+                    }}
+                >
+                    {feature.icon}
+                </div>
 
+            </div>
         </div>
     );
 };
