@@ -51,7 +51,7 @@ const Home: FC = () => {
         <div className={`min-h-screen transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'
         }`}>
-            <div className="fixed inset-0 z-0">
+            <div className="absolute inset-0 z-0">
                 <div
                     className="absolute inset-0"
                     style={{
