@@ -37,7 +37,9 @@ const FeatureCard: FC<FeatureCardProps> = ({feature, index, reverse}) => {
                 >
                     {feature.icon}
                 </div>
-
+                <h2 className="text-3xl lg:text-4xl font-bold mb-3 bg-gradient-to-r from-emerald-500 via-pink-500 to-violet-500 bg-clip-text text-transparent p-[0.1em] bg-[length:100%_120%] bg-bottom">
+                    {feature.title}
+                </h2>
             </div>
         </div>
     );
