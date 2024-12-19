@@ -1,7 +1,6 @@
 import {FC, useContext} from 'react';
 import {ThemeContext} from '../services/contexts/ThemeContext';
 import {Feature} from '../types/interfaces';
-
 import promptMoodboardDark from '../assets/prompt-moodboard-image.svg';
 import promptMoodboardLight from '../assets/prompt-moodboard-image-2.svg';
 import imageMoodboardDark from '../assets/image-moodboard-image.svg';
@@ -50,6 +49,22 @@ const Home: FC = () => {
         <div className={`min-h-screen transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'
         }`}>
+            <div className="fixed inset-0 z-0">
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        background: `
+                            radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.15), transparent 50%),
+                            radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15), transparent 50%),
+                            radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.15), transparent 50%)
+                        `,
+                        opacity: theme === 'dark' ? 1 : 0.7
+                    }}
+                />
+                <div className="absolute inset-0 backdrop-blur-[100px]"/>
+            </div>
+
+
         </div>
     );
 };
