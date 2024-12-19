@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {MdOutlineLightMode, MdOutlineDarkMode} from "react-icons/md";
 import {ThemeContext} from '../../services/contexts/ThemeContext';
 import logo from "./../../assets/logo_NoText.svg";
+import React from 'react';
 
 const Header: FC = () => {
     const {theme, toggleTheme} = useContext(ThemeContext);
