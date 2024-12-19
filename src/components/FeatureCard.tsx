@@ -45,6 +45,11 @@ const FeatureCard: FC<FeatureCardProps> = ({feature, index, reverse}) => {
                 }`}>
                     ✓ Export to PNG, PDF, JPG and Figma
                 </span>
+                <p className={`text-base lg:text-lg mb-6 transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                }`}>
+                    {feature.description}
+                </p>
 
             </div>
         </div>
