@@ -1,4 +1,4 @@
-import {FC, useContext} from 'react';
+import React, {FC, useContext} from 'react';
 import {Link} from 'react-router-dom';
 import {ThemeContext} from '../../services/contexts/ThemeContext';
 import logo from "./../../assets/logo_NoText.svg";
