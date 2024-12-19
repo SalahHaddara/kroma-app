@@ -51,9 +51,9 @@ const Home: FC = () => {
         <div className={`min-h-screen transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'
         }`}>
-            <div className="absolute inset-0 z-0">
+            <div className="fixed z-0">
                 <div
-                    className="absolute inset-0"
+                    className="fixed inset-0"
                     style={{
                         background: `
                             radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.15), transparent 50%),
