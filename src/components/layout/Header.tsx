@@ -34,10 +34,11 @@ const Header: FC = () => {
                         }`}>
                         Log in
                     </Link>
-                    <button
+                    <Link
+                        to="/signup"
                         className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white transition-colors duration-300">
                         Sign up
-                    </button>
+                    </Link>
                 </div>
             </div>
         </header>
