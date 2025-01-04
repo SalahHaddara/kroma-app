@@ -26,6 +26,14 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         console.log('Form submitted:', formData);
     };
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        const {name, value, type, checked} = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
             <Card className="w-full max-w-md p-8">
