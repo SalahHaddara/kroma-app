@@ -52,6 +52,17 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                             placeholder="you@example.com"
                         />
                     </div>
+                    <div className="space-y-2">
+                        <label className="text-sm">Password</label>
+                        <Input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            className="w-full"
+                            placeholder="•••••••"
+                        />
+                    </div>
                 </form>
             </Card>
         </div>
