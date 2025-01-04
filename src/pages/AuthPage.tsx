@@ -49,7 +49,11 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'
         }`}>
-            <Card className="w-full max-w-md p-8">
+            <Card className={`w-full max-w-md p-8 transition-colors duration-300 ${
+                theme === 'dark'
+                    ? 'bg-gray-800/50 border-gray-700'
+                    : 'bg-white/50 border-gray-200'
+            }`}>
                 <h2 className="text-2xl font-bold mb-2">
                     {isLogin ? 'Welcome back' : 'Create account'}
                 </h2>
