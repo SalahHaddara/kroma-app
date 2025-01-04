@@ -98,11 +98,12 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                     {isLogin ? 'Enter your details to sign in' : 'Start your design journey'}
                 </p>
             </div>
-            <Card className={`w-full max-w-md p-8 transition-colors duration-300 ${
-                theme === 'dark'
-                    ? 'bg-gray-800/50 border-gray-700'
-                    : 'bg-white/50 border-gray-200'
-            }`}>
+            <Card
+                className={`w-full max-w-md backdrop-blur-xl p-8 rounded-2xl shadow-2xl transition-colors duration-300 ${
+                    theme === 'dark'
+                        ? 'bg-gray-800/50 border-gray-700'
+                        : 'bg-white/50 border-gray-200'
+                }`}>
                 <div className="mb-8 text-center">
                     {/* Logo waves */}
                     <div className="flex justify-center gap-1 mb-6">
