@@ -77,7 +77,7 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     }
 
     return (
-        <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${
+        <div className={`min-h-screen flex items-center justify-center p-4 mt-16 transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'
         }`}>
             <div className="mb-8 text-center">
