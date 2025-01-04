@@ -103,7 +103,11 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                             name="password"
                             value={formData.password}
                             onChange={handleInputChange}
-                            className="w-full"
+                            className={`transition-colors duration-300 ${
+                                theme === 'dark'
+                                    ? 'bg-gray-700/50 border-gray-600 text-white placeholder:text-gray-500'
+                                    : 'bg-gray-100 border-gray-200 text-gray-900 placeholder:text-gray-400'
+                            }`}
                             placeholder="•••••••"
                         />
                     </div>
