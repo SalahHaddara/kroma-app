@@ -1,14 +1,9 @@
 import React, {useState} from 'react';
 import {Card} from '@/components/ui/card';
-
+import {Input} from '@/components/ui/input';
 
 interface AuthPageProps {
     isLogin: boolean;
-}
-
-interface AuthFormData {
-    email: string;
-    password: string;
 }
 
 interface AuthFormData {
@@ -25,6 +20,11 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         fullName: '',
         rememberMe: false
     });
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+        e.preventDefault();
+        console.log('Form submitted:', formData);
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
