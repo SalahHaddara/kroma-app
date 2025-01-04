@@ -93,6 +93,24 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                     ? 'bg-gray-800/50 border-gray-700'
                     : 'bg-white/50 border-gray-200'
             }`}>
+                <div className="mb-8 text-center">
+                    {/* Logo waves */}
+                    <div className="flex justify-center gap-1 mb-6">
+                        <div className="w-16 h-2 bg-pink-400 rounded-full transform translate-y-2"></div>
+                        <div className="w-16 h-2 bg-indigo-600 rounded-full transform -translate-y-0"></div>
+                        <div className="w-16 h-2 bg-teal-400 rounded-full transform translate-y-2"></div>
+                    </div>
+                    <h2 className={`text-2xl font-bold mb-2 transition-colors duration-300 ${
+                        theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                        {isLogin ? 'Welcome back' : 'Create account'}
+                    </h2>
+                    <p className={`transition-colors duration-300 ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                        {isLogin ? 'Enter your details to sign in' : 'Start your design journey'}
+                    </p>
+                </div>
                 <h2 className="text-2xl font-bold mb-2">
                     {isLogin ? 'Welcome back' : 'Create account'}
                 </h2>
