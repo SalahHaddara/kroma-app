@@ -72,6 +72,10 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         navigate(isLogin ? '/signup' : '/login');
     };
 
+    const handleSocialLogin = (provider: 'google' | 'github'): void => {
+        console.log(`${provider} login clicked`);
+    }
+    
     return (
         <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'
