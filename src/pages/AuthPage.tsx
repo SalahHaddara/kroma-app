@@ -59,7 +59,9 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
-                        <label className="text-sm">Email</label>
+                        <label className={`text-sm transition-colors duration-300 ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                        }`}>Email</label>
                         <Input
                             type="email"
                             name="email"
@@ -71,7 +73,9 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                     </div>
                     {!isLogin && (
                         <div className="space-y-2">
-                            <label className="text-sm">Full Name</label>
+                            <label className={`text-sm transition-colors duration-300 ${
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                            }`}>Full Name</label>
                             <Input
                                 type="text"
                                 name="fullName"
@@ -83,7 +87,9 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                         </div>
                     )}
                     <div className="space-y-2">
-                        <label className="text-sm">Password</label>
+                        <label className={`text-sm transition-colors duration-300 ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                        }`}>Password</label>
                         <Input
                             type="password"
                             name="password"
@@ -95,7 +101,9 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                     </div>
                     {isLogin && (
                         <div className="flex items-center justify-between text-sm">
-                            <label className="flex items-center">
+                            <label className={`text-sm transition-colors duration-300 ${
+                                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                            }`}>
                                 <input
                                     type="checkbox"
                                     name="rememberMe"
