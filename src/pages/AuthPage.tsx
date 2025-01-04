@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import {Card} from '@/components/ui/card';
 import {Input} from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
@@ -15,6 +16,8 @@ interface AuthFormData {
 }
 
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState<AuthFormData>({
         email: '',
         password: '',
@@ -33,6 +36,10 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+    };
+
+    const toggleAuthMode = () => {
+        navigate(isLogin ? '/signup' : '/login');
     };
 
     return (
@@ -105,6 +112,16 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                         {isLogin ? 'Sign in' : 'Create account'}
                     </Button>
                 </form>
+                <div className="mt-6 text-center text-sm">
+                    {isLogin ? "Don't have an account? " : "Already have an account? "}
+                    <button
+                        type="button"
+                        onClick={toggleAuthMode}
+                        className="text-indigo-500 hover:text-indigo-400"
+                    >
+                        {isLogin ? 'Sign up' : 'Sign in'}
+                    </button>
+                </div>
             </Card>
         </div>
     );
