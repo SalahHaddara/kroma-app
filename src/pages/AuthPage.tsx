@@ -76,26 +76,28 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                             className="w-full"
                             placeholder="•••••••"
                         />
-                        {isLogin && (
-                            <div className="flex items-center justify-between text-sm">
-                                <label className="flex items-center">
-                                    <input
-                                        type="checkbox"
-                                        name="rememberMe"
-                                        checked={formData.rememberMe}
-                                        onChange={handleInputChange}
-                                        className="mr-2 rounded"
-                                    />
-                                    Remember me
-                                </label>
-                                <button
-                                    type="button"
-                                    className="text-indigo-500 hover:text-indigo-400"
-                                >
-                                    Forgot password?
-                                </button>
-                            </div>
                     </div>
+                    {isLogin && (
+                        <div className="flex items-center justify-between text-sm">
+                            <label className="flex items-center">
+                                <input
+                                    type="checkbox"
+                                    name="rememberMe"
+                                    checked={formData.rememberMe}
+                                    onChange={handleInputChange}
+                                    className="mr-2 rounded"
+                                />
+                                Remember me
+                            </label>
+                            <button
+                                type="button"
+                                className="text-indigo-500 hover:text-indigo-400"
+                            >
+                                Forgot password?
+                            </button>
+                        </div>
+                    )}
+
                     <Button
                         type="submit"
                         className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-lg"
