@@ -75,7 +75,7 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     const handleSocialLogin = (provider: 'google' | 'github'): void => {
         console.log(`${provider} login clicked`);
     }
-    
+
     return (
         <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'
@@ -88,6 +88,18 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                 <h2 className="text-2xl font-bold mb-2">
                     {isLogin ? 'Welcome back' : 'Create account'}
                 </h2>
+
+                <div className="space-y-3 mb-6">
+                    <SocialLoginButton
+                        provider="google"
+                        onClick={() => handleSocialLogin('google')}
+                    />
+                    <SocialLoginButton
+                        provider="github"
+                        onClick={() => handleSocialLogin('github')}
+                    />
+                </div>
+                
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
                         <label className={`text-sm transition-colors duration-300 ${
