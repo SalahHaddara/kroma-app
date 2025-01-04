@@ -1,6 +1,5 @@
-import React from 'react';
-import {Card} from '@/components/ui/card';
 import React, {useState} from 'react';
+import {Card} from '@/components/ui/card';
 
 
 interface AuthPageProps {
@@ -20,6 +19,13 @@ interface AuthFormData {
 }
 
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
+    const [formData, setFormData] = useState<AuthFormData>({
+        email: '',
+        password: '',
+        fullName: '',
+        rememberMe: false
+    });
+
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
             <Card className="w-full max-w-md p-8">
