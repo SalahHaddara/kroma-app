@@ -80,6 +80,14 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'
         }`}>
+            <div className="fixed top-0 right-0 w-1/2 h-screen opacity-10">
+                <div
+                    className="absolute top-1/4 right-0 w-96 h-32 bg-pink-400 rounded-full blur-3xl transform rotate-12"></div>
+                <div
+                    className="absolute top-1/3 right-24 w-96 h-32 bg-indigo-600 rounded-full blur-3xl transform -rotate-12"></div>
+                <div
+                    className="absolute top-1/2 right-12 w-96 h-32 bg-teal-400 rounded-full blur-3xl transform rotate-6"></div>
+            </div>
             <Card className={`w-full max-w-md p-8 transition-colors duration-300 ${
                 theme === 'dark'
                     ? 'bg-gray-800/50 border-gray-700'
