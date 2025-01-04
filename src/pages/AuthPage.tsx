@@ -99,7 +99,22 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                         onClick={() => handleSocialLogin('github')}
                     />
                 </div>
-                
+
+                <div className="relative mb-6">
+                    <div className="absolute inset-0 flex items-center">
+                        <div className={`w-full border-t transition-colors duration-300 ${
+                            theme === 'dark' ? 'border-gray-600' : 'border-gray-200'
+                        }`}></div>
+                    </div>
+                    <div className="relative flex justify-center text-sm">
+                    <span className={`px-2 transition-colors duration-300 ${
+                        theme === 'dark'
+                            ? 'bg-gray-800/50 text-gray-400'
+                            : 'bg-white/50 text-gray-500'
+                    }`}>Or continue with</span>
+                    </div>
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
                         <label className={`text-sm transition-colors duration-300 ${
