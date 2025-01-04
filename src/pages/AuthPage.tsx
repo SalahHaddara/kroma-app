@@ -40,6 +40,19 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                 <h2 className="text-2xl font-bold mb-2">
                     {isLogin ? 'Welcome back' : 'Create account'}
                 </h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="space-y-2">
+                        <label className="text-sm">Email</label>
+                        <Input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            className="w-full"
+                            placeholder="you@example.com"
+                        />
+                    </div>
+                </form>
             </Card>
         </div>
     );
