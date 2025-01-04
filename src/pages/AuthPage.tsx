@@ -4,6 +4,7 @@ import {Card} from '@/components/ui/card';
 import {Input} from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
 import {ThemeContext} from '@/services/contexts/ThemeContext';
+import {FaGoogle, FaGithub} from "react-icons/fa";
 
 
 interface AuthPageProps {
@@ -15,6 +16,11 @@ interface AuthFormData {
     password: string;
     fullName?: string;
     rememberMe?: boolean;
+}
+
+interface SocialLoginProps {
+    provider: 'google' | 'github';
+    onClick: () => void;
 }
 
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
