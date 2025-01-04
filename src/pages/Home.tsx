@@ -80,7 +80,7 @@ const Home: FC = () => {
                         </p>
                         <a
                             href="#features"
-                            className={`inline-flex px-6 py-3 rounded-lg transition-colors duration-300 animate-[bounce_3s_ease-in-out_infinite] ${
+                            className={`inline-flex px-6 py-3 rounded-lg transition-colors duration-300 motion-safe:animate-[bounce_1s_ease-in-out_infinite] ${
                                 theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-slate-900/10 hover:bg-slate-900/20'
                             }`}
                         >
