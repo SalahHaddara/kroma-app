@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Card} from '@/components/ui/card';
 import {Input} from '@/components/ui/input';
+import {Button} from '@/components/ui/button';
 
 interface AuthPageProps {
     isLogin: boolean;
@@ -63,6 +64,12 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                             placeholder="•••••••"
                         />
                     </div>
+                    <Button
+                        type="submit"
+                        className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded-lg"
+                    >
+                        {isLogin ? 'Sign in' : 'Create account'}
+                    </Button>
                 </form>
             </Card>
         </div>
