@@ -6,7 +6,12 @@ interface AuthPageProps {
 }
 
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
-    return <div>Auth Page</div>;
+    return (
+        <div className="min-h-screen flex items-center justify-center p-4">
+            <Card>
+            </Card>
+        </div>
+    );
 };
 
 export default AuthPage;
