@@ -23,6 +23,27 @@ interface SocialLoginProps {
     onClick: () => void;
 }
 
+const SocialLoginButton: React.FC<SocialLoginProps> = ({provider, onClick}) => {
+    const {theme} = useContext(ThemeContext);
+    const Icon = provider === 'google' ? FaGoogle : FaGithub;
+    const text = `Continue with ${provider.charAt(0).toUpperCase() + provider.slice(1)}`;
+
+    return (
+        <Button
+            variant="outline"
+            className={`w-full transition-colors duration-300 ${
+                theme === 'dark'
+                    ? 'bg-gray-700/50 border-gray-600 hover:bg-gray-700 text-white'
+                    : 'bg-gray-100 border-gray-200 hover:bg-gray-200 text-gray-800'
+            }`}
+            onClick={onClick}
+        >
+            <Icon className="w-5 h-5 mr-2"/>
+            {text}
+        </Button>
+    );
+};
+
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     const navigate = useNavigate();
     const {theme} = useContext(ThemeContext);
