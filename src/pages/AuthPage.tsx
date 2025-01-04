@@ -4,7 +4,7 @@ interface AuthPageProps {
     isLogin: boolean;
 }
 
-const AuthPage = () => {
+const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     return <div>Auth Page</div>;
 };
 
