@@ -10,6 +10,13 @@ interface AuthFormData {
     password: string;
 }
 
+interface AuthFormData {
+    email: string;
+    password: string;
+    fullName?: string;
+    rememberMe?: boolean;
+}
+
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     return (
         <div className="min-h-screen flex items-center justify-center p-4">
