@@ -80,13 +80,23 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${
             theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'
         }`}>
-            <div className="fixed top-0 right-0 w-1/2 h-screen opacity-10">
-                <div
-                    className="absolute top-1/4 right-0 w-96 h-32 bg-pink-400 rounded-full blur-3xl transform rotate-12"></div>
-                <div
-                    className="absolute top-1/3 right-24 w-96 h-32 bg-indigo-600 rounded-full blur-3xl transform -rotate-12"></div>
-                <div
-                    className="absolute top-1/2 right-12 w-96 h-32 bg-teal-400 rounded-full blur-3xl transform rotate-6"></div>
+            <div className="mb-8 text-center">
+                {/* Logo waves */}
+                <div className="flex justify-center gap-1 mb-6">
+                    <div className="w-16 h-2 bg-pink-400 rounded-full transform translate-y-2"></div>
+                    <div className="w-16 h-2 bg-indigo-600 rounded-full transform -translate-y-0"></div>
+                    <div className="w-16 h-2 bg-teal-400 rounded-full transform translate-y-2"></div>
+                </div>
+                <h2 className={`text-2xl font-bold mb-2 transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
+                    {isLogin ? 'Welcome back' : 'Create account'}
+                </h2>
+                <p className={`transition-colors duration-300 ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                    {isLogin ? 'Enter your details to sign in' : 'Start your design journey'}
+                </p>
             </div>
             <Card className={`w-full max-w-md p-8 transition-colors duration-300 ${
                 theme === 'dark'
