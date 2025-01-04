@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {Card} from '@/components/ui/card';
 import {Input} from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
+import {ThemeContext} from '@/services/contexts/ThemeContext';
+
 
 interface AuthPageProps {
     isLogin: boolean;
@@ -17,6 +19,7 @@ interface AuthFormData {
 
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     const navigate = useNavigate();
+    const {theme} = useContext(ThemeContext);
 
     const [formData, setFormData] = useState<AuthFormData>({
         email: '',
@@ -43,7 +46,9 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4">
+        <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${
+            theme === 'dark' ? 'bg-slate-900' : 'bg-slate-50'
+        }`}>
             <Card className="w-full max-w-md p-8">
                 <h2 className="text-2xl font-bold mb-2">
                     {isLogin ? 'Welcome back' : 'Create account'}
