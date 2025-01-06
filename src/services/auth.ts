@@ -22,3 +22,7 @@ export const signup = async (fullName: string, email: string, password: string):
     localStorage.setItem('token', data.token);
     return data;
 };
+
+export const login = async (email: string, password: string): Promise<AuthResponse> => {
+    
+};
