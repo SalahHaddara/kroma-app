@@ -39,3 +39,7 @@ export const googleAuth = async (token: string): Promise<AuthResponse> => {
     localStorage.setItem('token', data.token);
     return data;
 };
+
+export const githubAuth = async (code: string): Promise<AuthResponse> => {
+
+};
