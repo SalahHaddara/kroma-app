@@ -32,3 +32,8 @@ export const login = async (email: string, password: string): Promise<AuthRespon
     localStorage.setItem('token', data.token);
     return data;
 };
+
+export const googleAuth = async (token: string): Promise<AuthResponse> => {
+    const response = await axios.post(`${API_URL}/auth/google`, {token});
+
+};
