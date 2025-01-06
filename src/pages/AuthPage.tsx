@@ -310,4 +310,5 @@ export const GitHubCallback: React.FC = () => {
         return <div>{error}</div>;
     }
 
+    return <div>Processing GitHub login...</div>;
 };
