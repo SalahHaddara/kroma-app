@@ -28,4 +28,7 @@ export const login = async (email: string, password: string): Promise<AuthRespon
         email,
         password
     });
+    const data = response.data;
+    localStorage.setItem('token', data.token);
+    return data;
 };
