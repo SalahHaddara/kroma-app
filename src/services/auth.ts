@@ -18,5 +18,7 @@ export const signup = async (fullName: string, email: string, password: string):
         email,
         password
     });
-
+    const data = response.data;
+    localStorage.setItem('token', data.token);
+    return data;
 };
