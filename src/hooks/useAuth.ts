@@ -5,3 +5,13 @@ interface AuthState {
     user: any | null;
     loading: boolean;
 }
+
+export const useAuth = () => {
+    const [authState, setAuthState] = useState<AuthState>({
+        isAuthenticated: false,
+        user: null,
+        loading: true
+    });
+
+    
+}
