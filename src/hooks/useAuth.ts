@@ -32,6 +32,14 @@ export const useAuth = () => {
                         loading: false
                     });
                 })
+                .catch(() => {
+                    localStorage.removeItem('token');
+                    setAuthState({
+                        isAuthenticated: false,
+                        user: null,
+                        loading: false
+                    });
+                });
         }
     }, []);
 
