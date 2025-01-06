@@ -89,6 +89,23 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         }
     };
 
+    const handleGoogleLogin = async () => {
+        try {
+            const auth2 = google.accounts.oauth2.initCodeClient({
+                client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID!,
+                scope: 'email profile',
+                callback: async (response) => {
+                    if (response.code) {
+                        await authService.googleAuth(response.code);
+                        navigate('/dashboard');
+                    }
+                },
+            });
+            auth2.requestCode();
+        } catch (err) {
+            setError('Google sign-in failed');
+        }
+    };
 
     const toggleAuthMode = () => {
         navigate(isLogin ? '/signup' : '/login');
