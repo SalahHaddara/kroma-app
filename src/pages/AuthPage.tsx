@@ -107,6 +107,12 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         }
     };
 
+    const handleGithubLogin = () => {
+        const GITHUB_CLIENT_ID = process.env.REACT_APP_GITHUB_CLIENT_ID;
+        const REDIRECT_URI = `${window.location.origin}/github-callback`;
+        window.location.href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=user:email`;
+    };
+
     const toggleAuthMode = () => {
         navigate(isLogin ? '/signup' : '/login');
     };
