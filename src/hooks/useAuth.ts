@@ -24,7 +24,14 @@ export const useAuth = () => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            });
+            })
+                .then(response => {
+                    setAuthState({
+                        isAuthenticated: true,
+                        user: response.data.user,
+                        loading: false
+                    });
+                })
         }
     }, []);
 
