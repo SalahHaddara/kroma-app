@@ -306,4 +306,8 @@ export const GitHubCallback: React.FC = () => {
         }
     }, [navigate]);
 
+    if (error) {
+        return <div>{error}</div>;
+    }
+
 };
