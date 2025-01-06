@@ -42,5 +42,7 @@ export const googleAuth = async (token: string): Promise<AuthResponse> => {
 
 export const githubAuth = async (code: string): Promise<AuthResponse> => {
     const response = await axios.post(`${API_URL}/auth/github`, {code});
-
+    const data = response.data;
+    localStorage.setItem('token', data.token);
+    return data;
 };
