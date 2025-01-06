@@ -13,5 +13,10 @@ interface AuthResponse {
 }
 
 export const signup = async (fullName: string, email: string, password: string): Promise<AuthResponse> => {
+    const response = await axios.post(`${API_URL}/auth/signup`, {
+        fullName,
+        email,
+        password
+    });
 
 };
