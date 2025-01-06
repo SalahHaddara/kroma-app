@@ -294,5 +294,16 @@ export const GitHubCallback: React.FC = () => {
     const navigate = useNavigate();
     const [error, setError] = useState<string>('');
 
+    useEffect(() => {
+        const code = new URLSearchParams(window.location.search).get('code');
+        if (code) {
+            authService.githubAuth(code)
+                .then(() => navigate('/dashboard'))
+                .catch(err => {
+                    setError('GitHub authentication failed');
+                    setTimeout(() => navigate('/login'), 3000);
+                });
+        }
+    }, [navigate]);
 
 };
