@@ -5,6 +5,7 @@ import {Input} from '@/components/ui/input';
 import {FaGoogle, FaGithub} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import {ThemeContext} from '@/services/contexts/ThemeContext';
+import * as authService from '../services/auth';
 
 interface AuthPageProps {
     isLogin: boolean;
@@ -68,14 +69,26 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log('Form submitted:', formData);
         setError('');
         setLoading(true);
 
-
+        try {
+            if (isLogin) {
+                await authService.login(formData.email, formData.password);
+            } else {
+                await authService.signup(formData.fullName!, formData.email, formData.password);
+            }
+            navigate('/dashboard');
+        } catch (e) {
+            setError('Error Occurred');
+        } finally {
+            setLoading(false);
+        }
     };
+
 
     const toggleAuthMode = () => {
         navigate(isLogin ? '/signup' : '/login');
