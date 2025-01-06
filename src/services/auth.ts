@@ -46,3 +46,7 @@ export const githubAuth = async (code: string): Promise<AuthResponse> => {
     localStorage.setItem('token', data.token);
     return data;
 };
+
+export const logout = (): void => {
+    localStorage.removeItem('token');
+};
