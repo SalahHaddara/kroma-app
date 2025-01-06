@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Card} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
@@ -289,3 +289,10 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
 };
 
 export default AuthPage;
+
+export const GitHubCallback: React.FC = () => {
+    const navigate = useNavigate();
+    const [error, setError] = useState<string>('');
+
+
+};
