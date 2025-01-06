@@ -40,6 +40,12 @@ export const useAuth = () => {
                         loading: false
                     });
                 });
+        } else {
+            setAuthState({
+                isAuthenticated: false,
+                user: null,
+                loading: false
+            });
         }
     }, []);
 
