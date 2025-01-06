@@ -46,6 +46,8 @@ const SocialLoginButton: React.FC<SocialLoginProps> = ({provider, onClick}) => {
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     const navigate = useNavigate();
     const {theme} = useContext(ThemeContext);
+    const [error, setError] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const [formData, setFormData] = useState<AuthFormData>({
         email: '',
@@ -69,6 +71,10 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         console.log('Form submitted:', formData);
+        setError('');
+        setLoading(true);
+
+
     };
 
     const toggleAuthMode = () => {
