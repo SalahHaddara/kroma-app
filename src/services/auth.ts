@@ -24,5 +24,8 @@ export const signup = async (fullName: string, email: string, password: string):
 };
 
 export const login = async (email: string, password: string): Promise<AuthResponse> => {
-    
+    const response = await axios.post(`${API_URL}/auth/login`, {
+        email,
+        password
+    });
 };
