@@ -6,6 +6,8 @@ import Home from './pages/Home';
 import React from 'react';
 import AuthPage, {GitHubCallback} from "./pages/AuthPage";
 import {AuthProvider} from "@/services/contexts/AuthContext";
+import {ProtectedRoute} from "@/components/ProtectedRoute";
+import {Dashboard} from "@mui/icons-material";
 
 // import About from './pages/About';
 // import Privacy from './pages/Privacy';
@@ -23,7 +25,14 @@ const App = () => {
                             <Route path="/login" element={<AuthPage isLogin={true}/>}/>
                             <Route path="/signup" element={<AuthPage isLogin={false}/>}/>
                             <Route path="/github-callback" element={<GitHubCallback/>}/>
-
+                            <Route
+                                path="/dashboard"
+                                element={
+                                    <ProtectedRoute>
+                                        <Dashboard/>
+                                    </ProtectedRoute>
+                                }
+                            />
                             {/*<Route path="/about" element={<About/>}/>*/}
                             {/*<Route path="/privacy" element={<Privacy/>}/>*/}
                             {/*<Route path="/contact" element={<Contact/>}/>*/}
