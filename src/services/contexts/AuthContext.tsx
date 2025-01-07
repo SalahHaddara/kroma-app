@@ -19,5 +19,12 @@ const AuthContext = createContext<AuthContextType>({
     }
 });
 
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
+
+};
 
 export const useAuth = () => useContext(AuthContext);
