@@ -20,4 +20,4 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 
-
+export const useAuth = () => useContext(AuthContext);
