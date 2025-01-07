@@ -1,11 +1,20 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import * as authService from '../auth';
+
+interface User {
+    _id: string;
+    fullName: string;
+    email: string;
+    avatar?: string;
+}
 
 interface AuthContextType {
     isAuthenticated: boolean;
-    user: any;
+    user: User | null;
     loading: boolean;
-    login: (token: string, userData: any) => void;
+    login: (email: string, password: string) => Promise<void>;
+    signup: (fullName: string, email: string, password: string) => Promise<void>;
     logout: () => void;
 }
 
@@ -13,7 +22,9 @@ const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
     user: null,
     loading: true,
-    login: () => {
+    login: async () => {
+    },
+    signup: async () => {
     },
     logout: () => {
     }
@@ -21,55 +32,50 @@ const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check if user is logged in on mount
         const token = localStorage.getItem('token');
         if (token) {
-            // Verify token with backend
-            fetch(`${process.env.REACT_APP_API_URL}/auth/verify`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.user) {
-                        setIsAuthenticated(true);
-                        setUser(data.user);
-                    } else {
-                        localStorage.removeItem('token');
-                    }
-                })
-                .catch(() => {
-                    localStorage.removeItem('token');
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-        } else {
-            setLoading(false);
+            setIsAuthenticated(true);
         }
+        setLoading(false);
     }, []);
 
-    const login = (token: string, userData: any) => {
-        localStorage.setItem('token', token);
+    const login = async (email: string, password: string) => {
+        const response = await authService.login(email, password);
+        setUser(response.user);
         setIsAuthenticated(true);
-        setUser(userData);
+        navigate('/dashboard');
+    };
+
+    const signup = async (fullName: string, email: string, password: string) => {
+        const response = await authService.signup(fullName, email, password);
+        setUser(response.user);
+        setIsAuthenticated(true);
+        navigate('/dashboard');
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
+        authService.logout();
         setIsAuthenticated(false);
         setUser(null);
         navigate('/login');
     };
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, user, loading, login, logout}}>
+        <AuthContext.Provider
+            value={{
+                isAuthenticated,
+                user,
+                loading,
+                login,
+                signup,
+                logout
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
