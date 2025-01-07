@@ -7,7 +7,8 @@ import React from 'react';
 import AuthPage, {GitHubCallback} from "./pages/AuthPage";
 import {AuthProvider} from "@/services/contexts/AuthContext";
 import {ProtectedRoute} from "@/components/ProtectedRoute";
-import {Dashboard} from "@mui/icons-material";
+import Dashboard from "@/pages/Dashboard";
+// import {Dashboard} from "@mui/icons-material";
 
 // import About from './pages/About';
 // import Privacy from './pages/Privacy';
