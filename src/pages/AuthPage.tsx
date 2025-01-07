@@ -6,6 +6,7 @@ import {FaGoogle, FaGithub} from "react-icons/fa";
 import {useNavigate} from "react-router-dom";
 import {ThemeContext} from '@/services/contexts/ThemeContext';
 import * as authService from '../services/auth';
+import {useAuth} from '../services/contexts/AuthContext';
 
 interface AuthPageProps {
     isLogin: boolean;
@@ -47,8 +48,9 @@ const SocialLoginButton: React.FC<SocialLoginProps> = ({provider, onClick}) => {
 const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     const navigate = useNavigate();
     const {theme} = useContext(ThemeContext);
+    const {login, signup, isAuthenticated, loading} = useAuth();
     const [error, setError] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(false);
+    const [formLoading, setFormLoading] = useState<boolean>(false);
 
     const [formData, setFormData] = useState<AuthFormData>({
         email: '',
@@ -56,6 +58,12 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         fullName: '',
         rememberMe: false
     });
+
+    useEffect(() => {
+        if (isAuthenticated && !loading) {
+            navigate('/dashboard');
+        }
+    }, [isAuthenticated, loading, navigate]);
 
     const handleSocialLogin = (provider: 'google' | 'github'): void => {
         console.log(`${provider} login clicked`);
@@ -71,21 +79,22 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
         setError('');
-        setLoading(true);
+        setFormLoading(true);
 
         try {
             if (isLogin) {
-                await authService.login(formData.email, formData.password);
+                await login(formData.email, formData.password);
             } else {
-                await authService.signup(formData.fullName!, formData.email, formData.password);
+                if (!formData.fullName) {
+                    throw new Error('Full name is required');
+                }
+                await signup(formData.fullName, formData.email, formData.password);
             }
-            navigate('/dashboard');
-        } catch (e) {
-            setError('Error Occurred');
+        } catch (error) {
+            setError(error instanceof Error ? error.message : 'Authentication failed');
         } finally {
-            setLoading(false);
+            setFormLoading(false);
         }
     };
 
