@@ -54,6 +54,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
             setLoading(false);
         }
     }, []);
+
+    const login = (token: string, userData: any) => {
+        localStorage.setItem('token', token);
+        setIsAuthenticated(true);
+        setUser(userData);
+    };
+
 };
 
 export const useAuth = () => useContext(AuthContext);
