@@ -61,6 +61,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
         setUser(userData);
     };
 
+    const logout = () => {
+        localStorage.removeItem('token');
+        setIsAuthenticated(false);
+        setUser(null);
+        navigate('/login');
+    };
+
 };
 
 export const useAuth = () => useContext(AuthContext);
