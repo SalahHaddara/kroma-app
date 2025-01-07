@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import * as authService from '../auth';
 
 interface User {
@@ -35,35 +35,86 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setIsAuthenticated(true);
-        }
-        setLoading(false);
+        const checkAuth = () => {
+            const token = localStorage.getItem('token');
+            const userData = localStorage.getItem('user');
+
+            if (token && userData) {
+                setUser(JSON.parse(userData));
+                setIsAuthenticated(true);
+            } else {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                setUser(null);
+                setIsAuthenticated(false);
+            }
+            setLoading(false);
+        };
+
+        checkAuth();
     }, []);
 
     const login = async (email: string, password: string) => {
-        const response = await authService.login(email, password);
-        setUser(response.user);
-        setIsAuthenticated(true);
-        navigate('/dashboard');
+        setLoading(true);
+        try {
+            const response = await authService.login(email, password);
+
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('user', JSON.stringify(response.user));
+
+            setUser(response.user);
+            setIsAuthenticated(true);
+
+            const from = location.state?.from?.pathname || '/dashboard';
+            navigate(from, {replace: true});
+        } catch (error) {
+            // Clean up any partial data
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            throw error;
+        } finally {
+            setLoading(false);
+        }
     };
 
     const signup = async (fullName: string, email: string, password: string) => {
-        const response = await authService.signup(fullName, email, password);
-        setUser(response.user);
-        setIsAuthenticated(true);
-        navigate('/dashboard');
+        setLoading(true);
+        try {
+            const response = await authService.signup(fullName, email, password);
+
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('user', JSON.stringify(response.user));
+
+            setUser(response.user);
+            setIsAuthenticated(true);
+            navigate('/dashboard');
+        } catch (error) {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            throw error;
+        } finally {
+            setLoading(false);
+        }
     };
 
     const logout = () => {
-        authService.logout();
-        setIsAuthenticated(false);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         setUser(null);
+        setIsAuthenticated(false);
         navigate('/login');
     };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"/>
+            </div>
+        );
+    }
 
     return (
         <AuthContext.Provider
@@ -81,4 +132,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
     );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};
+
+export {AuthContext};
