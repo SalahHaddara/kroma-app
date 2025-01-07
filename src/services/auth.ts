@@ -10,6 +10,15 @@ const authApi = axios.create({
     }
 });
 
+// Add interceptor to include token in requests
+authApi.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
 interface AuthResponse {
     token: string;
     user: {
@@ -20,41 +29,41 @@ interface AuthResponse {
     }
 }
 
-export const signup = async (fullName: string, email: string, password: string): Promise<AuthResponse> => {
-    const response = await axios.post(`${API_URL}/auth/signup`, {
+export const verifyToken = async (): Promise<AuthResponse> => {
+    const response = await authApi.get('/auth/verify');
+    return response.data;
+};
+
+export const signup = async (
+    fullName: string,
+    email: string,
+    password: string
+): Promise<AuthResponse> => {
+    const response = await authApi.post('/auth/signup', {
         fullName,
         email,
         password
     });
-    const data = response.data;
-    localStorage.setItem('token', data.token);
-    return data;
+    return response.data;
 };
 
-export const login = async (email: string, password: string): Promise<AuthResponse> => {
-    const response = await axios.post(`${API_URL}/auth/login`, {
+export const login = async (
+    email: string,
+    password: string
+): Promise<AuthResponse> => {
+    const response = await authApi.post('/auth/login', {
         email,
         password
     });
-    const data = response.data;
-    localStorage.setItem('token', data.token);
-    return data;
+    return response.data;
 };
 
 export const googleAuth = async (token: string): Promise<AuthResponse> => {
-    const response = await axios.post(`${API_URL}/auth/google`, {token});
-    const data = response.data;
-    localStorage.setItem('token', data.token);
-    return data;
+    const response = await authApi.post('/auth/google', {token});
+    return response.data;
 };
 
 export const githubAuth = async (code: string): Promise<AuthResponse> => {
-    const response = await axios.post(`${API_URL}/auth/github`, {code});
-    const data = response.data;
-    localStorage.setItem('token', data.token);
-    return data;
-};
-
-export const logout = (): void => {
-    localStorage.removeItem('token');
+    const response = await authApi.post('/auth/github', {code});
+    return response.data;
 };
