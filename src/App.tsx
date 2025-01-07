@@ -4,7 +4,7 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import React from 'react';
-import AuthPage from "./pages/AuthPage";
+import AuthPage, {GitHubCallback} from "./pages/AuthPage";
 import {AuthProvider} from "@/services/contexts/AuthContext";
 
 // import About from './pages/About';
@@ -22,6 +22,7 @@ const App = () => {
                             <Route path="/" element={<Home/>}/>
                             <Route path="/login" element={<AuthPage isLogin={true}/>}/>
                             <Route path="/signup" element={<AuthPage isLogin={false}/>}/>
+                            <Route path="/github-callback" element={<GitHubCallback/>}/>
 
                             {/*<Route path="/about" element={<About/>}/>*/}
                             {/*<Route path="/privacy" element={<Privacy/>}/>*/}
