@@ -15,5 +15,8 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
+export const generateDesign = async (prompt: string) => {
+
+};
 
 export default api;
