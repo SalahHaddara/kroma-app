@@ -17,7 +17,7 @@ api.interceptors.request.use((config) => {
 
 export const generateDesign = async (prompt: string) => {
     const response = await api.post('/get-design/tokens', {prompt});
-
+    return response.data;
 };
 
 export default api;
