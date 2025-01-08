@@ -70,6 +70,12 @@ const Dashboard: React.FC = () => {
         return 'prompt';
     });
 
+    const tabs: Tab[] = [
+        {id: 'prompt', label: 'Prompt to Moodboard'},
+        {id: 'image', label: 'Image to Moodboard'},
+        {id: 'suggestions', label: 'Design Suggestions'}
+    ];
+
     return <div>Dashboard</div>;
 };
 
