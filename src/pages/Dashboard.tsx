@@ -69,6 +69,10 @@ const Dashboard: React.FC = () => {
         }
         return 'prompt';
     });
+    const [promptResults, setPromptResults] = useState(false);
+    const [imageResults, setImageResults] = useState(false);
+    const [suggestionsResults, setSuggestionsResults] = useState(false);
+    const [inputValue, setInputValue] = useState('');
 
     const tabs: Tab[] = [
         {id: 'prompt', label: 'Prompt to Moodboard'},
