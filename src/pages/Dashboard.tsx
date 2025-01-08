@@ -80,6 +80,20 @@ const Dashboard: React.FC = () => {
         {id: 'suggestions', label: 'Design Suggestions'}
     ];
 
+    const handleGenerate = (): void => {
+        if (inputValue.trim()) {
+            setPromptResults(true);
+        }
+    };
+
+    const handleFileUpload = (): void => {
+        if (activeTab === 'image') {
+            setImageResults(true);
+        } else if (activeTab === 'suggestions') {
+            setSuggestionsResults(true);
+        }
+    };
+
     const handleTabChange = (tabId: TabId): void => {
         setActiveTab(tabId);
     };
