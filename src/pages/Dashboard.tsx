@@ -111,7 +111,7 @@ const Dashboard: React.FC = () => {
             </div>
         </ResultContainer>
     );
-    
+
     const renderImageResults = (): JSX.Element => (
         <ResultContainer isDark={isDark} title="Your Generated Design">
             <div className={`aspect-video rounded-lg ${isDark ? 'bg-slate-700' : 'bg-slate-100'} 
@@ -128,7 +128,39 @@ const Dashboard: React.FC = () => {
 
     const renderSuggestionsResults = (): JSX.Element => (
         <ResultContainer isDark={isDark} title="Analyzed Design">
-            {/* Suggestions results content */}
+            <div className={`aspect-video rounded-lg ${isDark ? 'bg-slate-700' : 'bg-slate-100'} 
+            flex items-center justify-center`}>
+                <p className={isDark ? 'text-slate-400' : 'text-slate-600'}>Design Preview</p>
+            </div>
+            <div className="space-y-6">
+                <h3 className="text-xl font-bold mb-6">Improvements Details</h3>
+                {[
+                    {
+                        color: '#FF4D4D',
+                        title: 'Header Prominence',
+                        description: 'Main heading could be more prominent - increase font size by 25%'
+                    },
+                    {
+                        color: '#FF9F40',
+                        title: 'CTA Visibility',
+                        description: 'Primary call-to-action button needs more visual weight'
+                    },
+                    {
+                        color: '#FFD700',
+                        title: 'Touch Targets',
+                        description: 'Navigation menu items need increased spacing to 32px'
+                    }
+                ].map((improvement, index) => (
+                    <ImprovementItem
+                        key={index}
+                        {...improvement}
+                        isDark={isDark}
+                    />
+                ))}
+            </div>
+            <div className="flex gap-2">
+                <ExportButton isDark={isDark} label="Export Report"/>
+            </div>
         </ResultContainer>
     );
 
