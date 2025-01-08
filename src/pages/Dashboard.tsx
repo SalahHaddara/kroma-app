@@ -124,6 +124,17 @@ const Dashboard: React.FC = () => {
             </div>
             <div className="max-w-6xl mx-auto pt-40 px-4">
                 {/* Main content */}
+                {/* Input Section */}
+                {activeTab === 'prompt' ? (
+                    <div className="flex gap-2">
+                        {/* Prompt input */}
+                    </div>
+                ) : (
+                    <div onClick={handleFileUpload}
+                         className="border-2 border-dashed rounded-lg p-12 text-center cursor-pointer">
+                        {/* File upload section */}
+                    </div>
+                )}
             </div>
         </main>
     );
