@@ -1,5 +1,8 @@
-import {Download} from "lucide-react";
-import React from "react";
+import React, {useState, useContext} from 'react';
+import {Download, Camera} from 'lucide-react';
+import {ThemeContext} from '../services/contexts/ThemeContext';
+import {useAuth} from '../services/contexts/AuthContext';
+import {useSearchParams} from "react-router-dom";
 
 type TabId = 'prompt' | 'image' | 'suggestions';
 
@@ -52,3 +55,14 @@ const ImprovementItem: React.FC<ImprovementItemProps> = ({color, title, descript
         </div>
     </div>
 );
+
+const Dashboard: React.FC = () => {
+    const [searchParams] = useSearchParams();
+    const {theme} = useContext(ThemeContext);
+    const {user} = useAuth();
+    const isDark = theme === 'dark';
+
+    return <div>Dashboard</div>;
+};
+
+export default Dashboard;
