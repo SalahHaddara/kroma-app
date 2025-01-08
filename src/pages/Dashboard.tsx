@@ -40,3 +40,15 @@ const ExportButton: React.FC<ThemeProps & { label: string }> = ({isDark, label})
         {label}
     </button>
 );
+
+const ImprovementItem: React.FC<ImprovementItemProps> = ({color, title, description, isDark}) => (
+    <div className="flex items-start gap-3">
+        <div className="w-3 h-3 rounded-full mt-1.5" style={{backgroundColor: color}}/>
+        <div>
+            <h4 className="font-semibold mb-1">{title}</h4>
+            <p className={`${isDark ? 'text-slate-400' : 'text-slate-600'} text-sm`}>
+                {description}
+            </p>
+        </div>
+    </div>
+);
