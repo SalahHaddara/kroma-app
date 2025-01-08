@@ -76,6 +76,10 @@ const Dashboard: React.FC = () => {
         {id: 'suggestions', label: 'Design Suggestions'}
     ];
 
+    const handleTabChange = (tabId: TabId): void => {
+        setActiveTab(tabId);
+    };
+
     return <div>Dashboard</div>;
 };
 
