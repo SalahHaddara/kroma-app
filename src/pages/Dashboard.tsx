@@ -110,6 +110,12 @@ const Dashboard: React.FC = () => {
         </ResultContainer>
     );
 
+    const renderSuggestionsResults = (): JSX.Element => (
+        <ResultContainer isDark={isDark} title="Analyzed Design">
+            {/* Suggestions results content */}
+        </ResultContainer>
+    );
+
     return <div>Dashboard</div>;
 };
 
