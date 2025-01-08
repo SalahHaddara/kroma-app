@@ -116,7 +116,17 @@ const Dashboard: React.FC = () => {
         </ResultContainer>
     );
 
-    return <div>Dashboard</div>;
+    return (
+        <main className={`min-h-screen pt-16 pb-16 ${isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'}`}>
+            {/* Tab Navigation */}
+            <div className="absolute top-20 left-1/2 -translate-x-1/2 z-40 mt-6">
+                {/* Tab buttons */}
+            </div>
+            <div className="max-w-6xl mx-auto pt-40 px-4">
+                {/* Main content */}
+            </div>
+        </main>
+    );
 };
 
 export default Dashboard;
