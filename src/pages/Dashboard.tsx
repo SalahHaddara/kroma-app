@@ -104,6 +104,12 @@ const Dashboard: React.FC = () => {
         </ResultContainer>
     );
 
+    const renderImageResults = (): JSX.Element => (
+        <ResultContainer isDark={isDark} title="Your Generated Design">
+            {/* Image results content */}
+        </ResultContainer>
+    );
+
     return <div>Dashboard</div>;
 };
 
