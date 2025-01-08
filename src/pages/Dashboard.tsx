@@ -98,6 +98,12 @@ const Dashboard: React.FC = () => {
         setActiveTab(tabId);
     };
 
+    const renderPromptResults = (): JSX.Element => (
+        <ResultContainer isDark={isDark} title="Your Generated Design">
+            {/* Prompt results content */}
+        </ResultContainer>
+    );
+
     return <div>Dashboard</div>;
 };
 
