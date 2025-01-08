@@ -39,7 +39,8 @@ const Home: FC = () => {
             imageSrc: {
                 dark: promptMoodboardDark,
                 light: promptMoodboardLight
-            }
+            },
+            onClick: () => handleFeatureClick('?tab=prompt')
         },
         {
             title: "Image to Moodboard",
@@ -49,7 +50,8 @@ const Home: FC = () => {
             imageSrc: {
                 dark: imageMoodboardDark,
                 light: imageMoodboardLight
-            }
+            },
+            onClick: () => handleFeatureClick('?tab=image')
         },
         {
             title: "Design Suggestions",
@@ -59,7 +61,8 @@ const Home: FC = () => {
             imageSrc: {
                 dark: designSuggestionsDark,
                 light: designSuggestionsLight
-            }
+            },
+            onClick: () => handleFeatureClick('?tab=suggestions')
         }
     ];
 
