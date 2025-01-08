@@ -12,4 +12,5 @@ export interface Feature {
         dark: string;
         light: string;
     };
+    onClick: () => void;
 }
