@@ -62,6 +62,14 @@ const Dashboard: React.FC = () => {
     const {user} = useAuth();
     const isDark = theme === 'dark';
 
+    const [activeTab, setActiveTab] = useState<TabId>(() => {
+        const tabParam = searchParams.get('tab');
+        if (tabParam === 'prompt' || tabParam === 'image' || tabParam === 'suggestions') {
+            return tabParam;
+        }
+        return 'prompt';
+    });
+
     return <div>Dashboard</div>;
 };
 
