@@ -111,9 +111,18 @@ const Dashboard: React.FC = () => {
             </div>
         </ResultContainer>
     );
+    
     const renderImageResults = (): JSX.Element => (
         <ResultContainer isDark={isDark} title="Your Generated Design">
-            {/* Image results content */}
+            <div className={`aspect-video rounded-lg ${isDark ? 'bg-slate-700' : 'bg-slate-100'} 
+            flex items-center justify-center`}>
+                <p className={isDark ? 'text-slate-400' : 'text-slate-600'}>
+                    Image-based Moodboard
+                </p>
+            </div>
+            <div className="flex gap-2">
+                <ExportButton isDark={isDark} label="Export Design"/>
+            </div>
         </ResultContainer>
     );
 
