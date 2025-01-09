@@ -50,9 +50,11 @@ const FeatureCard: FC<FeatureCardProps> = ({feature, index, reverse}) => {
                 }`}>
                     {feature.description}
                 </p>
-                <button className={`w-full sm:w-auto px-6 py-3 rounded-lg transition-colors duration-300 ${
-                    theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-slate-900/10 hover:bg-slate-900/20'
-                }`}>
+                <button
+                    onClick={feature.onClick}
+                    className={`w-full sm:w-auto px-6 py-3 rounded-lg transition-colors duration-300 ${
+                        theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-slate-900/10 hover:bg-slate-900/20'
+                    }`}>
                     {feature.buttonText}
                 </button>
             </div>
