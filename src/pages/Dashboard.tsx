@@ -94,6 +94,8 @@ const Dashboard: React.FC = () => {
             setPromptResults(true);
         } catch (e) {
             console.error('Failed to generate design:', e);
+        } finally {
+            setIsLoading(false);
         }
 
 
