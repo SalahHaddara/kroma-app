@@ -74,6 +74,7 @@ const Dashboard: React.FC = () => {
     const [imageResults, setImageResults] = useState(false);
     const [suggestionsResults, setSuggestionsResults] = useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const isDark = theme === 'dark';
 
@@ -214,6 +215,7 @@ const Dashboard: React.FC = () => {
                             />
                             <button
                                 onClick={handleGenerate}
+                                disabled={isLoading}
                                 className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-pink-500 text-white rounded-lg hover:opacity-90"
                             >
                                 Generate
