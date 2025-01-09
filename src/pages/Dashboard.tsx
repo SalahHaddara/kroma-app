@@ -87,6 +87,11 @@ const Dashboard: React.FC = () => {
     const handleGenerate = async (): Promise<void> => {
         if (!inputValue.trim()) return;
 
+        setIsLoading(true);
+        const response = await generateDesign(inputValue.trim());
+        console.log('Design API Response:', response);
+        setPromptResults(true);
+
 
     };
 
