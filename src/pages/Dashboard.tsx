@@ -218,7 +218,7 @@ const Dashboard: React.FC = () => {
                                 disabled={isLoading}
                                 className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-pink-500 text-white rounded-lg hover:opacity-90"
                             >
-                                Generate
+                                {isLoading ? 'Generating...' : 'Generate'}
                             </button>
                         </div>
                     ) : (
