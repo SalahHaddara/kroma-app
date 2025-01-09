@@ -3,6 +3,7 @@ import {Download, Camera} from 'lucide-react';
 import {ThemeContext} from '../services/contexts/ThemeContext';
 import {useAuth} from '../services/contexts/AuthContext';
 import {useSearchParams} from "react-router-dom";
+import {generateDesign} from '../utils/api';
 
 type TabId = 'prompt' | 'image' | 'suggestions';
 
