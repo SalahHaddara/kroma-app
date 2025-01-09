@@ -84,10 +84,10 @@ const Dashboard: React.FC = () => {
         {id: 'suggestions', label: 'Design Suggestions'}
     ];
 
-    const handleGenerate = (): void => {
-        if (inputValue.trim()) {
-            setPromptResults(true);
-        }
+    const handleGenerate = async (): Promise<void> => {
+        if (!inputValue.trim()) return;
+
+
     };
 
     const handleFileUpload = (): void => {
