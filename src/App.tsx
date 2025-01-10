@@ -8,9 +8,10 @@ import AuthPage, {GitHubCallback} from "./pages/AuthPage";
 import {AuthProvider} from "@/services/contexts/AuthContext";
 import {ProtectedRoute} from "@/components/ProtectedRoute";
 import Dashboard from "@/pages/Dashboard";
+import FigmaConfirmation from "@/pages/FigmaConfirmation";
 // import {Dashboard} from "@mui/icons-material";
 
-// import About from './pages/About';
+// import About from './pages/AboutN';
 // import Privacy from './pages/Privacy';
 // import Contact from './pages/Contact';
 
@@ -26,6 +27,7 @@ const App = () => {
                             <Route path="/login" element={<AuthPage isLogin={true}/>}/>
                             <Route path="/signup" element={<AuthPage isLogin={false}/>}/>
                             <Route path="/github-callback" element={<GitHubCallback/>}/>
+                            <Route path="/figma-confirmation" element={<FigmaConfirmation/>}/>
                             <Route
                                 path="/dashboard"
                                 element={
