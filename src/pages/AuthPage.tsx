@@ -3,13 +3,14 @@ import {Card} from '@/components/ui/card';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {FaGoogle, FaGithub} from "react-icons/fa";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {ThemeContext} from '@/services/contexts/ThemeContext';
 import * as authService from '../services/auth';
 import {useAuth} from '../services/contexts/AuthContext';
 
 interface AuthPageProps {
     isLogin: boolean;
+    sessionKey?: string;
 }
 
 interface AuthFormData {
@@ -51,6 +52,9 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
     const {login, signup, isAuthenticated, loading} = useAuth();
     const [error, setError] = useState<string>('');
     const [formLoading, setFormLoading] = useState<boolean>(false);
+    const [searchParams] = useSearchParams();
+    const sessionKey = searchParams.get('sessionKey');
+    const isPluginLogin = Boolean(sessionKey);
 
     const [formData, setFormData] = useState<AuthFormData>({
         email: '',
@@ -61,9 +65,14 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
 
     useEffect(() => {
         if (isAuthenticated && !loading) {
-            navigate('/dashboard');
+            if (isPluginLogin && sessionKey) {
+                navigate(`/figma-confirmation?sessionKey=${sessionKey}`);
+            } else {
+                navigate('/dashboard');
+            }
+            // navigate('/dashboard');
         }
-    }, [isAuthenticated, loading, navigate]);
+    }, [isAuthenticated, loading, navigate, isPluginLogin, sessionKey]);
 
     const handleSocialLogin = (provider: 'google' | 'github'): void => {
         console.log(`${provider} login clicked`);
@@ -153,10 +162,8 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
                         <div className="w-16 h-2 bg-indigo-600 rounded-full transform -translate-y-0"></div>
                         <div className="w-16 h-2 bg-teal-400 rounded-full transform translate-y-2"></div>
                     </div>
-                    <h2 className={`text-2xl font-bold mb-2 transition-colors duration-300 ${
-                        theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
-                        {isLogin ? 'Welcome back' : 'Create account'}
+                    <h2 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        {isPluginLogin ? 'Connect to Figma Plugin' : isLogin ? 'Welcome back' : 'Create account'}
                     </h2>
                     <p className={`transition-colors duration-300 ${
                         theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
