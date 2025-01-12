@@ -20,4 +20,9 @@ export const generateDesign = async (prompt: string) => {
     return response.data;
 };
 
+export const getLatestDesign = async () => {
+    const response = await api.get('/get-design/latest-tokens');
+    return response.data;
+};
+
 export default api;
