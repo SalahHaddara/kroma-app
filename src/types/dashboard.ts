@@ -1,3 +1,5 @@
+import {DesignResponse} from '@/services/imageService';
+
 export type TabId = 'prompt' | 'image' | 'suggestions';
 
 export type DesignStatus = 'not_started' | 'tokens_pending' | 'tokens_generated' | 'image_pending' | 'complete';
@@ -16,8 +18,14 @@ export interface DesignData {
     // Add other design data properties as needed
 }
 
+interface DesignStateEntry {
+    status: DesignStatus;
+    data?: DesignResponse;
+    error?: string;
+}
+
 export type DesignState = {
-    [K in TabId]: DesignData | undefined;
+    [K in TabId]: DesignStateEntry;
 }
 
 export type DesignStatusState = {
