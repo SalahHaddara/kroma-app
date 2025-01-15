@@ -6,6 +6,7 @@ export interface DesignIssue {
     colorCode: string;
 }
 
+
 export interface DesignAnalysisData {
     critical?: DesignIssue[];
     moderate?: DesignIssue[];
