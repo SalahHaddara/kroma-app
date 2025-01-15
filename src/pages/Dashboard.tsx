@@ -14,13 +14,11 @@ import StructuredAnalysisDisplay from "@/components/dashboard/StructuredAnalysis
 import EnhancedLoading from "@/components/dashboard/EnhancedLoading";
 
 const Dashboard: React.FC = () => {
-    // Common state
     const [searchParams] = useSearchParams();
     const {theme} = useContext(ThemeContext);
     const {user} = useAuth();
     const isDark = theme === 'dark';
 
-    // Feature specific states
     const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
     const [designData, setDesignData] = useState<DesignState>({});
     const [designStatus, setDesignStatus] = useState<DesignStatusState>({
@@ -38,8 +36,8 @@ const Dashboard: React.FC = () => {
         result: null,
         error: null
     });
+    const [analysisStage, setAnalysisStage] = useState<string>('initializing');
 
-    // Tab management
     const [activeTab, setActiveTab] = useState<TabId>(() => {
         const tabParam = searchParams.get('tab') as TabId;
         return tabParam || 'prompt';
@@ -61,75 +59,56 @@ const Dashboard: React.FC = () => {
         suggestions: false
     });
 
-    // Navigation
     const tabs = [
         {id: 'prompt', label: 'Prompt to Moodboard'},
         {id: 'image', label: 'Image to Moodboard'},
         {id: 'suggestions', label: 'Design Suggestions'}
     ];
 
-    // Cleanup polling on unmount
     useEffect(() => {
         return () => {
             if (pollingInterval) {
-                console.log('Cleaning up polling interval on unmount');
                 clearInterval(pollingInterval);
             }
         };
     }, [pollingInterval]);
 
-    // Monitor statuss
     useEffect(() => {
-        if (designStatus[activeTab] === 'complete') {
-            console.log('Design completed, checking polling cleanup');
-            if (pollingInterval) {
-                clearInterval(pollingInterval);
-                setPollingInterval(null);
-            }
+        if (designStatus[activeTab] === 'complete' && pollingInterval) {
+            clearInterval(pollingInterval);
+            setPollingInterval(null);
         }
     }, [designStatus, activeTab]);
 
-    // Prompt to Moodboard
     const handlePromptGeneration = async (): Promise<void> => {
-        console.log('Starting prompt-to-moodboard generation');
-        const currentInput = inputValues[activeTab];
-        if (!currentInput.trim()) {
-            console.log('Empty prompt, aborting generation');
-            return;
-        }
+        const currentInput = inputValues[activeTab].trim();
+        if (!currentInput) return;
 
         try {
             setIsLoading(prev => ({...prev, [activeTab]: true}));
             setDesignStatus(prev => ({...prev, [activeTab]: 'tokens_pending'}));
-            console.log('Generating design from prompt:', currentInput.trim());
 
-            await generateDesign(currentInput.trim());
-            console.log('Design generation API call successful');
+            await generateDesign(currentInput);
 
             setDesignStatus(prev => ({...prev, [activeTab]: 'tokens_generated'}));
             startPolling();
         } catch (error) {
-            console.error('Prompt generation error:', error);
             handleGenerationError(error);
         }
     };
 
-    //Image to Moodboard
     const handleMoodboardImageUpload = async (file: File): Promise<void> => {
-        console.log('Starting image-to-moodboard processing');
         try {
             setSelectedFiles(prev => ({...prev, [activeTab]: file}));
             setIsLoading(prev => ({...prev, [activeTab]: true}));
-            setDesignStatus(prev => ({...prev, [activeTab]: 'initializing'}));
 
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            setDesignStatus(prev => ({...prev, [activeTab]: 'processing'}));
-
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            setDesignStatus(prev => ({...prev, [activeTab]: 'generating'}));
+            setDesignStatus(prev => ({...prev, [activeTab]: 'tokens_pending'}));
+            setGenerationMessage(prev => ({
+                ...prev,
+                [activeTab]: 'Analyzing your image...'
+            }));
 
             const designResponse = await processImage(file);
-            console.log('Image processing successful:', designResponse);
 
             setDesignData(prev => ({
                 ...prev,
@@ -139,40 +118,28 @@ const Dashboard: React.FC = () => {
             setDesignStatus(prev => ({...prev, [activeTab]: 'tokens_generated'}));
             setGenerationMessage(prev => ({
                 ...prev,
-                [activeTab]: 'Design tokens generated! Head to Figma plugin...'
+                [activeTab]: 'Design tokens ready! Preparing for Figma...'
             }));
 
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            setDesignStatus(prev => ({...prev, [activeTab]: 'finalizing'}));
             startPolling();
+
         } catch (error) {
-            console.error('Image-to-moodboard error:', error);
             handleGenerationError(error);
         }
     };
 
-    //Design Analysis
-    const [analysisStage, setAnalysisStage] = useState<string>('initializing');
-
     const handleDesignAnalysis = async (file: File): Promise<void> => {
-        console.log('Starting design analysis');
         try {
             setSelectedFiles(prev => ({...prev, [activeTab]: file}));
             setAnalysisState(prev => ({...prev, isLoading: true}));
 
-            // Simulate progress through analysis stages
-            setAnalysisStage('initializing');
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            const stages = ['initializing', 'processing', 'extracting', 'generating'];
+            for (const stage of stages) {
+                setAnalysisStage(stage);
+                await new Promise(resolve => setTimeout(resolve, 1500));
+            }
 
-            setAnalysisStage('processing');
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            setAnalysisStage('extracting');
-            await new Promise(resolve => setTimeout(resolve, 1500));
-
-            setAnalysisStage('generating');
             const result = await analyzeDesign(file);
-            console.log('Design analysis successful:', result);
 
             setAnalysisStage('finalizing');
             await new Promise(resolve => setTimeout(resolve, 1000));
@@ -183,7 +150,6 @@ const Dashboard: React.FC = () => {
                 error: null
             });
         } catch (error) {
-            console.error('Design analysis error:', error);
             setAnalysisState({
                 isLoading: false,
                 result: null,
@@ -195,8 +161,6 @@ const Dashboard: React.FC = () => {
     };
 
     const handleImageUpload = async (file: File): Promise<void> => {
-        console.log('Image upload initiated for tab:', activeTab);
-
         if (activeTab === 'suggestions') {
             await handleDesignAnalysis(file);
         } else if (activeTab === 'image') {
@@ -204,29 +168,21 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // Polling
     const startPolling = () => {
-        console.log('Starting design polling');
         if (pollingInterval) {
             clearInterval(pollingInterval);
         }
 
         const interval = setInterval(pollForDesignImage, 3000);
         setPollingInterval(interval);
-
         pollForDesignImage();
     };
 
     const pollForDesignImage = async () => {
         try {
-            console.log('Polling for design updates...');
             const latestDesign = await getLatestDesign();
 
-            // if we have a valid design response procced
-            if (latestDesign && latestDesign.designImage) {
-                console.log('Design update received with image data');
-
-                // update states in order
+            if (latestDesign?.designImage) {
                 setDesignData(prev => ({...prev, [activeTab]: latestDesign}));
                 setDesignStatus(prev => ({...prev, [activeTab]: 'complete'}));
                 setGenerationMessage(prev => ({
@@ -235,48 +191,13 @@ const Dashboard: React.FC = () => {
                 }));
                 setIsLoading(prev => ({...prev, [activeTab]: false}));
 
-                // Stop polling
                 if (pollingInterval) {
-                    console.log('Stopping polling after successful design receipt');
                     clearInterval(pollingInterval);
                     setPollingInterval(null);
                 }
-            } else {
-                console.log('No design image yet, continuing to poll...');
             }
         } catch (error) {
-            console.error('Polling error:', error);
-            if (error.response?.status === 401) {
-                console.log('Authentication error during polling, stopping');
-                if (pollingInterval) {
-                    clearInterval(pollingInterval);
-                    setPollingInterval(null);
-                }
-                setIsLoading(prev => ({...prev, [activeTab]: false}));
-            }
-        }
-    };
-
-    const updateDesignState = (latestDesign: any) => {
-        setDesignData(prev => ({...prev, [activeTab]: latestDesign}));
-        setDesignStatus(prev => ({...prev, [activeTab]: 'complete'}));
-        setGenerationMessage(prev => ({
-            ...prev,
-            [activeTab]: 'Design generated successfully! Figma plugin updated.'
-        }));
-        setIsLoading(prev => ({...prev, [activeTab]: false}));
-    };
-
-    const stopPolling = () => {
-        if (pollingInterval) {
-            console.log('Stopping polling');
-            clearInterval(pollingInterval);
-            setPollingInterval(prev => {
-                if (prev !== null) {
-                    return null;
-                }
-                return prev;
-            });
+            handlePollingError(error);
         }
     };
 
@@ -291,16 +212,19 @@ const Dashboard: React.FC = () => {
 
     const handlePollingError = (error: any) => {
         if (error.response?.status === 401) {
-            stopPolling();
+            if (pollingInterval) {
+                clearInterval(pollingInterval);
+                setPollingInterval(null);
+            }
             setIsLoading(prev => ({...prev, [activeTab]: false}));
         }
     };
 
     const handleImageClear = () => {
-        console.log('Clearing image for tab:', activeTab);
         setSelectedFiles(prev => ({...prev, [activeTab]: null}));
         setDesignStatus(prev => ({...prev, [activeTab]: 'not_started'}));
         setGenerationMessage(prev => ({...prev, [activeTab]: ''}));
+
         if (activeTab === 'suggestions') {
             setAnalysisState({
                 isLoading: false,
@@ -321,11 +245,13 @@ const Dashboard: React.FC = () => {
 
             <div className="max-w-6xl mx-auto pt-40 px-4">
                 <div className="flex flex-col gap-6">
+                    {/* Dynamic header based on active tab */}
                     <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-emerald-500 to-pink-500 bg-clip-text text-transparent">
                         {activeTab === 'prompt' ? 'Create from Prompt' :
                             activeTab === 'image' ? 'Create from Image' : 'Design Suggestions'}
                     </h1>
 
+                    {/* Prompt input section */}
                     {activeTab === 'prompt' ? (
                         <div className="flex gap-2">
                             <input
@@ -352,6 +278,7 @@ const Dashboard: React.FC = () => {
                         </div>
                     ) : (
                         <div className="flex flex-col gap-6">
+                            {/* Image upload section */}
                             <ImageUploader
                                 isDark={isDark}
                                 onImageSelect={handleImageUpload}
@@ -359,25 +286,26 @@ const Dashboard: React.FC = () => {
                                 isLoading={isLoading[activeTab]}
                                 currentFile={selectedFiles[activeTab]}
                             />
+
+                            {/* Design analysis section with simplified loading */}
                             {activeTab === 'suggestions' && (
-                                <>
-                                    {analysisState.isLoading ? (
-                                        <EnhancedLoading
-                                            type="analysis"
-                                            stage={analysisStage}
-                                            isDark={isDark}
-                                        />
-                                    ) : (
-                                        <StructuredAnalysisDisplay
-                                            analysis={analysisState.result?.analysis}
-                                            isDark={isDark}
-                                        />
-                                    )}
-                                </>
+                                analysisState.isLoading ? (
+                                    <EnhancedLoading
+                                        type="analysis"
+                                        stage={analysisStage}
+                                        isDark={isDark}
+                                    />
+                                ) : (
+                                    <StructuredAnalysisDisplay
+                                        analysis={analysisState.result?.analysis}
+                                        isDark={isDark}
+                                    />
+                                )
                             )}
                         </div>
                     )}
 
+                    {/* Design result display for non-suggestion tabs */}
                     {activeTab !== 'suggestions' && (
                         <DesignResult
                             isDark={isDark}
