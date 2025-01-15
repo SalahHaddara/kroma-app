@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
     const {user} = useAuth();
     const isDark = theme === 'dark';
 
-    // Feature-specific states
+    // Feature specific states
     const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
     const [designData, setDesignData] = useState<DesignState>({});
     const [designStatus, setDesignStatus] = useState<DesignStatusState>({
@@ -45,7 +45,6 @@ const Dashboard: React.FC = () => {
         return tabParam || 'prompt';
     });
 
-    // Input management
     const [inputValues, setInputValues] = useState<{ [K in TabId]: string }>({
         prompt: '',
         image: '',
@@ -62,7 +61,7 @@ const Dashboard: React.FC = () => {
         suggestions: false
     });
 
-    // Navigation configuration
+    // Navigation
     const tabs = [
         {id: 'prompt', label: 'Prompt to Moodboard'},
         {id: 'image', label: 'Image to Moodboard'},
@@ -71,7 +70,6 @@ const Dashboard: React.FC = () => {
 
     // Cleanup polling on unmount
     useEffect(() => {
-        // Cleanup function for polling
         return () => {
             if (pollingInterval) {
                 console.log('Cleaning up polling interval on unmount');
@@ -80,7 +78,7 @@ const Dashboard: React.FC = () => {
         };
     }, [pollingInterval]);
 
-    // Monitor design status changes
+    // Monitor statuss
     useEffect(() => {
         if (designStatus[activeTab] === 'complete') {
             console.log('Design completed, checking polling cleanup');
@@ -91,7 +89,7 @@ const Dashboard: React.FC = () => {
         }
     }, [designStatus, activeTab]);
 
-    // Feature 1: Prompt-to-Moodboard
+    // Prompt to Moodboard
     const handlePromptGeneration = async (): Promise<void> => {
         console.log('Starting prompt-to-moodboard generation');
         const currentInput = inputValues[activeTab];
@@ -116,7 +114,7 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // Feature 2: Image-to-Moodboard
+    //Image to Moodboard
     const handleMoodboardImageUpload = async (file: File): Promise<void> => {
         console.log('Starting image-to-moodboard processing');
         try {
@@ -153,7 +151,7 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // Feature 3: Design Analysis
+    //Design Analysis
     const [analysisStage, setAnalysisStage] = useState<string>('initializing');
 
     const handleDesignAnalysis = async (file: File): Promise<void> => {
@@ -196,7 +194,6 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // Unified image upload handler
     const handleImageUpload = async (file: File): Promise<void> => {
         console.log('Image upload initiated for tab:', activeTab);
 
@@ -207,20 +204,16 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // Polling logic
-    // Start polling with proper setup
+    // Polling
     const startPolling = () => {
         console.log('Starting design polling');
-        // Clear any existing interval first
         if (pollingInterval) {
             clearInterval(pollingInterval);
         }
 
-        // Set up new polling interval
         const interval = setInterval(pollForDesignImage, 3000);
         setPollingInterval(interval);
 
-        // Do an immediate first poll
         pollForDesignImage();
     };
 
@@ -229,11 +222,11 @@ const Dashboard: React.FC = () => {
             console.log('Polling for design updates...');
             const latestDesign = await getLatestDesign();
 
-            // Only proceed if we have a valid design response
+            // if we have a valid design response procced
             if (latestDesign && latestDesign.designImage) {
                 console.log('Design update received with image data');
 
-                // Update all the states in the correct order
+                // update states in order
                 setDesignData(prev => ({...prev, [activeTab]: latestDesign}));
                 setDesignStatus(prev => ({...prev, [activeTab]: 'complete'}));
                 setGenerationMessage(prev => ({
@@ -242,7 +235,7 @@ const Dashboard: React.FC = () => {
                 }));
                 setIsLoading(prev => ({...prev, [activeTab]: false}));
 
-                // Stop polling after all states are updated
+                // Stop polling
                 if (pollingInterval) {
                     console.log('Stopping polling after successful design receipt');
                     clearInterval(pollingInterval);
@@ -264,7 +257,6 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // Helper functions
     const updateDesignState = (latestDesign: any) => {
         setDesignData(prev => ({...prev, [activeTab]: latestDesign}));
         setDesignStatus(prev => ({...prev, [activeTab]: 'complete'}));
@@ -278,9 +270,7 @@ const Dashboard: React.FC = () => {
     const stopPolling = () => {
         if (pollingInterval) {
             console.log('Stopping polling');
-            // Clear the interval immediately
             clearInterval(pollingInterval);
-            // Use a callback to ensure state is updated after clearing
             setPollingInterval(prev => {
                 if (prev !== null) {
                     return null;
@@ -320,7 +310,6 @@ const Dashboard: React.FC = () => {
         }
     };
 
-    // Render
     return (
         <main className={`min-h-screen pt-16 pb-16 ${isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'}`}>
             <TabNavigation
