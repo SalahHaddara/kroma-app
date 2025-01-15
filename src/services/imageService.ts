@@ -92,3 +92,39 @@ export const compressImage = async (file: File): Promise<File> => {
     });
 };
 
+export const processImage = async (imageFile: File): Promise<DesignResponse> => {
+    try {
+        const validationResult = validateImage(imageFile);
+        if (!validationResult.isValid) {
+            throw new Error(validationResult.error);
+        }
+
+        const processedFile = await compressImage(imageFile);
+
+        const formData = new FormData();
+        formData.append('image', processedFile);
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('Authentication required');
+        }
+
+        const response = await axios.post<DesignResponse>(
+            `${API_URL}/get-design/generate-from-image`,
+            formData,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        );
+
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to process image');
+        }
+        throw error;
+    }
+};
