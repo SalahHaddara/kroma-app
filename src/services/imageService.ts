@@ -19,3 +19,22 @@ export interface DesignResponse {
     };
     inspirationImages: string[];
 }
+
+export const validateImage = (file: File): ImageValidationResult => {
+    if (!file.type.startsWith('image/')) {
+        return {
+            isValid: false,
+            error: 'File must be an image'
+        };
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+        return {
+            isValid: false,
+            error: 'Image must be less than 5MB'
+        };
+    }
+
+    return {isValid: true};
+};
+
