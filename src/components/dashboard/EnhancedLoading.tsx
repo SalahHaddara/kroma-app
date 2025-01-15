@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-    Loader2,
-    RefreshCw,
-    Sparkles,
-    ImagePlus,
-    Binary,
-    Lightbulb,
-    Palette,
-    ArrowRight
-} from 'lucide-react';
+import {Sparkles, Palette, Binary} from 'lucide-react';
 
 interface EnhancedLoadingProps {
     type: 'prompt' | 'image' | 'analysis';
@@ -21,10 +12,10 @@ const loadingConfigs = {
         icon: Sparkles,
         stages: {
             'initializing': 'Initializing AI system...',
-            'processing': 'Processing your creative prompt...',
+            'processing': 'Our AI is crafting your design tokens...',
             'generating': 'Generating your unique moodboard...',
-            'tokens_pending': 'Creating design tokens...',
-            'tokens_generated': 'Design tokens ready! Head to Figma plugin...',
+            'tokens_pending': 'Creating design tokens from your prompt...',
+            'tokens_generated': 'Design tokens ready! Head to your Figma plugin to generate the design.',
             'finalizing': 'Almost there! Open your Figma plugin to generate the design'
         }
     },
@@ -34,8 +25,8 @@ const loadingConfigs = {
             'initializing': 'Preparing image processing...',
             'processing': 'Analyzing your image composition...',
             'generating': 'Creating matching design elements...',
-            'tokens_pending': 'Generating design tokens...',
-            'tokens_generated': 'Design tokens ready! Head to Figma plugin...',
+            'tokens_pending': 'Extracting design tokens from your image...',
+            'tokens_generated': 'Design tokens ready! Head to your Figma plugin to generate the design.',
             'finalizing': 'Almost there! Open your Figma plugin to generate the design'
         }
     },
@@ -55,63 +46,32 @@ const EnhancedLoading: React.FC<EnhancedLoadingProps> = ({type, stage, isDark}) 
     const config = loadingConfigs[type];
     const LoadingIcon = config.icon;
     const message = config.stages[stage] || 'Processing...';
-    const isPluginStage = stage === 'tokens_generated' || stage === 'finalizing';
 
     return (
         <div className={`flex flex-col items-center space-y-4 p-6 rounded-lg ${
             isDark ? 'bg-slate-800/50' : 'bg-slate-100/50'
-        } backdrop-blur-sm transition-all duration-500`}>
-            <div className="flex items-center space-x-4">
-                {isPluginStage ? (
-                    <ArrowRight className={`w-8 h-8 ${
-                        isDark ? 'text-emerald-400' : 'text-emerald-600'
-                    } animate-bounce`}/>
-                ) : (
-                    <LoadingIcon className={`w-8 h-8 ${
-                        isDark ? 'text-emerald-400' : 'text-emerald-600'
-                    } animate-pulse`}/>
-                )}
-
-                <div className="flex space-x-2">
-                    {!isPluginStage && [...Array(3)].map((_, i) => (
-                        <div
-                            key={i}
-                            className={`w-2 h-2 rounded-full ${
-                                isDark ? 'bg-emerald-400' : 'bg-emerald-600'
-                            } animate-bounce`}
-                            style={{animationDelay: `${i * 0.15}s`}}
-                        />
-                    ))}
-                </div>
+        } backdrop-blur-sm transition-all duration-500 animate-[fadeIn_0.5s_ease-out]`}>
+            <div className="flex items-center justify-center relative">
+                <div className={`absolute inset-0 ${
+                    isDark ? 'bg-emerald-400' : 'bg-emerald-600'
+                } opacity-20 rounded-full blur-xl animate-[pulse_2s_ease-in-out_infinite]`}/>
+                <LoadingIcon className={`w-8 h-8 relative ${
+                    isDark ? 'text-emerald-400' : 'text-emerald-600'
+                } transition-all duration-300 hover:scale-110`}/>
             </div>
 
-            <div className="text-center">
+            <div className="text-center space-y-2">
                 <p className={`text-lg font-medium ${
                     isDark ? 'text-white' : 'text-slate-900'
-                } ${isPluginStage ? 'animate-pulse' : ''}`}>
+                }`}>
                     {message}
                 </p>
-                {!isPluginStage && (
-                    <p className={`text-sm ${
-                        isDark ? 'text-slate-400' : 'text-slate-600'
-                    }`}>
-                        This may take a few moments...
-                    </p>
-                )}
+                <p className={`text-sm ${
+                    isDark ? 'text-slate-400' : 'text-slate-600'
+                }`}>
+                    This may take a few moments...
+                </p>
             </div>
-
-            {!isPluginStage && (
-                <div className="flex space-x-4 mt-4">
-                    <div className="animate-spin">
-                        <RefreshCw className="w-5 h-5"/>
-                    </div>
-                    <div className={`w-5 h-5 ${
-                        isDark ? 'text-emerald-400' : 'text-emerald-600'
-                    } animate-pulse`}>
-                        <Loader2/>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
