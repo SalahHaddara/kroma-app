@@ -92,6 +92,16 @@ const Header: FC = () => {
                                         ? 'hover:bg-slate-700 focus:bg-slate-700'
                                         : 'hover:bg-slate-100 focus:bg-slate-100'
                                 }`}
+                                onClick={() => window.location.href = '/history'}
+                            >
+                                History
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                className={`cursor-pointer ${
+                                    theme === 'dark'
+                                        ? 'hover:bg-slate-700 focus:bg-slate-700'
+                                        : 'hover:bg-slate-100 focus:bg-slate-100'
+                                }`}
                                 onClick={handleLogout}
                             >
                                 Logout
