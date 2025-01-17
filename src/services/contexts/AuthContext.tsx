@@ -7,10 +7,12 @@ interface User {
     fullName: string;
     email: string;
     avatar?: string;
+    isAdmin: boolean;
 }
 
 interface AuthContextType {
     isAuthenticated: boolean;
+    isAdmin: boolean;
     user: User | null;
     loading: boolean;
     login: (email: string, password: string) => Promise<void>;
@@ -20,6 +22,7 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType>({
     isAuthenticated: false,
+    isAdmin: false,
     user: null,
     loading: true,
     login: async () => {
@@ -32,6 +35,7 @@ const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -43,13 +47,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
             const userData = localStorage.getItem('user');
 
             if (token && userData) {
-                setUser(JSON.parse(userData));
+                const parsedUser = JSON.parse(userData);
+                setUser(parsedUser);
                 setIsAuthenticated(true);
+                setIsAdmin(parsedUser.isAdmin || false);
             } else {
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 setUser(null);
                 setIsAuthenticated(false);
+                setIsAdmin(false);
             }
             setLoading(false);
         };
@@ -67,8 +74,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
 
             setUser(response.user);
             setIsAuthenticated(true);
+            setIsAdmin(response.user.isAdmin || false);
 
-            const from = location.state?.from?.pathname || '/dashboard';
+            const from = response.user.isAdmin ? '/admin/dashboard' : location.state?.from?.pathname || '/dashboard';
             navigate(from, {replace: true});
         } catch (error) {
             // Clean up any partial data
@@ -120,6 +128,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
         <AuthContext.Provider
             value={{
                 isAuthenticated,
+                isAdmin,
                 user,
                 loading,
                 login,
