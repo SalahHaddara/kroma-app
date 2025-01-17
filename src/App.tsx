@@ -7,7 +7,10 @@ import React from 'react';
 import AuthPage, {GitHubCallback} from "./pages/AuthPage";
 import {AuthProvider} from "@/services/contexts/AuthContext";
 import {ProtectedRoute} from "@/components/ProtectedRoute";
-import Dashboard from "@/pages/Dashboard";
+import Dashboard from "@/pages/Dashboard"
+import History from "@/pages/History";
+
+;
 import FigmaConfirmation from "@/pages/FigmaConfirmation";
 // import {Dashboard} from "@mui/icons-material";
 
@@ -33,6 +36,14 @@ const App = () => {
                                 element={
                                     <ProtectedRoute>
                                         <Dashboard/>
+                                    </ProtectedRoute>
+                                }
+                            />i
+                            <Route
+                                path="/history"
+                                element={
+                                    <ProtectedRoute>
+                                        <History/>
                                     </ProtectedRoute>
                                 }
                             />
