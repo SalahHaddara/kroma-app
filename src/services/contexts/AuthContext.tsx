@@ -71,15 +71,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({children}
 
             localStorage.setItem('token', response.token);
             localStorage.setItem('user', JSON.stringify(response.user));
-
             setUser(response.user);
             setIsAuthenticated(true);
-            setIsAdmin(response.user.isAdmin || false);
-
-            const from = response.user.isAdmin ? '/admin/dashboard' : location.state?.from?.pathname || '/dashboard';
-            navigate(from, {replace: true});
+            setIsAdmin(response.user.isAdmin);
+            
+            if (response.user.isAdmin) {
+                navigate('/admin/dashboard', {replace: true});
+            } else if (location.state?.from) {
+                navigate(location.state.from, {replace: true});
+            } else if (location.search.includes('sessionKey')) {
+                const sessionKey = new URLSearchParams(location.search).get('sessionKey');
+                navigate(`/figma-confirmation?sessionKey=${sessionKey}`);
+            } else {
+                navigate('/dashboard', {replace: true});
+            }
         } catch (error) {
-            // Clean up any partial data
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             throw error;
