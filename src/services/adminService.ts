@@ -16,6 +16,7 @@ export interface UserWithStats {
     stats: UserStats;
 }
 
+
 const adminApi = axios.create({
     baseURL: API_URL,
     headers: {
@@ -23,3 +24,10 @@ const adminApi = axios.create({
     }
 });
 
+adminApi.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
