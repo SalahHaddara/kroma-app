@@ -210,6 +210,31 @@ const AdminDashboard = () => {
                         </div>
                     </Card>
                 )}
+                <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Confirm User Removal</DialogTitle>
+                            <DialogDescription>
+                                Are you sure you want to remove {selectedUser?.fullName}?
+                                This action cannot be undone.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <div className="flex justify-end gap-4">
+                            <Button
+                                variant="outline"
+                                onClick={() => setIsDeleteDialogOpen(false)}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                variant="destructive"
+                                onClick={handleDeleteUser}
+                            >
+                                Remove User
+                            </Button>
+                        </div>
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     );
