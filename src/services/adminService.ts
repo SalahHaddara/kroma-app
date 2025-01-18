@@ -7,3 +7,12 @@ export interface UserStats {
     totalAnalyses: number;
     lastActive: string;
 }
+
+export interface UserWithStats {
+    _id: string;
+    fullName: string;
+    email: string;
+    avatar?: string;
+    stats: UserStats;
+}
+
