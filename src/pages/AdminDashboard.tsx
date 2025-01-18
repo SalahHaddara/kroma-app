@@ -53,6 +53,18 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleDeleteUser = async () => {
+        if (!selectedUser) return;
+
+        try {
+            await removeUser(selectedUser._id);
+            setIsDeleteDialogOpen(false);
+            fetchDashboardData();
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
+
     const StatCard = ({title, value, icon: Icon}) => (
         <Card className={`p-6 ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
             <div className="flex items-center justify-between">
@@ -81,6 +93,10 @@ const AdminDashboard = () => {
         <div
             className={`min-h-screen mt-1 pt-20 pb-16 ${isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'}`}>
             <div className="max-w-7xl mx-auto px-4">
+                <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-emerald-500 to-pink-500 bg-clip-text text-transparent">
+                    Admin Dashboard
+                </h1>
+
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     {stats && (
                         <>
@@ -107,6 +123,7 @@ const AdminDashboard = () => {
                         </>
                     )}
                 </div>
+
                 {stats && (
                     <Card
                         className={`p-6 mb-8 ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
@@ -142,6 +159,7 @@ const AdminDashboard = () => {
                         </div>
                     </Card>
                 )}
+
                 {users && (
                     <Card className={`p-6 ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
                         <h2 className={`text-xl font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>
@@ -210,6 +228,7 @@ const AdminDashboard = () => {
                         </div>
                     </Card>
                 )}
+
                 <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                     <DialogContent>
                         <DialogHeader>
