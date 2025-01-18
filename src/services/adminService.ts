@@ -16,6 +16,15 @@ export interface UserWithStats {
     stats: UserStats;
 }
 
+export interface PaginatedUsers {
+    users: UserWithStats[];
+    pagination: {
+        page: number;
+        limit: number;
+        total: number;
+        pages: number;
+    };
+}
 
 const adminApi = axios.create({
     baseURL: API_URL,
@@ -31,3 +40,12 @@ adminApi.interceptors.request.use((config) => {
     }
     return config;
 });
+
+export const getUsers = async (page: number = 1, limit: number = 10): Promise<PaginatedUsers> => {
+    try {
+        const response = await adminApi.get(`/users?page=${page}&limit=${limit}`);
+        return response.data;
+    } catch (error) {
+        throw new Error('Failed to fetch users');
+    }
+};
