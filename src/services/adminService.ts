@@ -26,6 +26,22 @@ export interface PaginatedUsers {
     };
 }
 
+export interface UserDetails {
+    user: {
+        _id: string;
+        fullName: string;
+        email: string;
+        avatar?: string;
+    };
+    stats: UserStats & {
+        averageDesignsPerDay: number;
+    };
+    history: {
+        designs: any[];
+        analyses: any[];
+    };
+}
+
 export interface SystemStats {
     overview: {
         totalUsers: number;
@@ -60,6 +76,15 @@ export const getUsers = async (page: number = 1, limit: number = 10): Promise<Pa
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch users');
+    }
+};
+
+export const getUserDetails = async (userId: string): Promise<UserDetails> => {
+    try {
+        const response = await adminApi.get(`/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error('Failed to fetch user details');
     }
 };
 
