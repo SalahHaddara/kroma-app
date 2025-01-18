@@ -9,9 +9,9 @@ import {AuthProvider} from "@/services/contexts/AuthContext";
 import {ProtectedRoute} from "@/components/ProtectedRoute";
 import Dashboard from "@/pages/Dashboard"
 import History from "@/pages/History";
-
-;
 import FigmaConfirmation from "@/pages/FigmaConfirmation";
+import {AdminRoute} from "@/components/admin/AdminRoute";
+import AdminDashboard from "@/pages/AdminDashboard";
 // import {Dashboard} from "@mui/icons-material";
 
 // import About from './pages/AboutN';
@@ -38,13 +38,22 @@ const App = () => {
                                         <Dashboard/>
                                     </ProtectedRoute>
                                 }
-                            />i
+                            />
                             <Route
                                 path="/history"
                                 element={
                                     <ProtectedRoute>
                                         <History/>
                                     </ProtectedRoute>
+                                }
+                            />
+                            {/* Admin routes */}
+                            <Route
+                                path="/admin/dashboard"
+                                element={
+                                    <AdminRoute>
+                                        <AdminDashboard/>
+                                    </AdminRoute>
                                 }
                             />
                             {/*<Route path="/about" element={<About/>}/>*/}
