@@ -32,6 +32,14 @@ const AdminDashboard = () => {
         }
     };
 
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-500"/>
+            </div>
+        );
+    }
+
     return (
         <div
             className={`min-h-screen mt-1 pt-20 pb-16 ${isDark ? 'bg-slate-900 text-white' : 'bg-white text-slate-900'}`}>
