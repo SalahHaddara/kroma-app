@@ -67,10 +67,7 @@ const AuthPage: React.FC<AuthPageProps> = ({isLogin}) => {
         if (isAuthenticated && !loading) {
             if (isPluginLogin && sessionKey) {
                 navigate(`/figma-confirmation?sessionKey=${sessionKey}`);
-            } else {
-                navigate('/dashboard');
             }
-            // navigate('/dashboard');
         }
     }, [isAuthenticated, loading, navigate, isPluginLogin, sessionKey]);
 
