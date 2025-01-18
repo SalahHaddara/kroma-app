@@ -23,6 +23,12 @@ import {
     UserWithStats, SystemStats, PaginatedUsers
 } from '@/services/adminService';
 
+interface StatCardProps {
+    title: string;
+    value: number;
+    icon: React.ElementType;
+}
+
 const AdminDashboard = () => {
     const {theme} = useContext(ThemeContext);
     const isDark = theme === 'dark';
@@ -59,13 +65,13 @@ const AdminDashboard = () => {
         try {
             await removeUser(selectedUser._id);
             setIsDeleteDialogOpen(false);
-            fetchDashboardData();
+            await fetchDashboardData();
         } catch (error) {
             console.error('Error deleting user:', error);
         }
     };
 
-    const StatCard = ({title, value, icon: Icon}) => (
+    const StatCard: React.FC<StatCardProps> = ({title, value, icon: Icon}) => (
         <Card className={`p-6 ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
             <div className="flex items-center justify-between">
                 <div>
