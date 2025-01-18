@@ -71,3 +71,11 @@ export const removeUser = async (userId: string): Promise<void> => {
     }
 };
 
+export const getSystemStats = async (): Promise<SystemStats> => {
+    try {
+        const response = await adminApi.get('/stats');
+        return response.data;
+    } catch (error) {
+        throw new Error('Failed to fetch system statistics');
+    }
+};
