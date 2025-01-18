@@ -26,6 +26,19 @@ export interface PaginatedUsers {
     };
 }
 
+export interface SystemStats {
+    overview: {
+        totalUsers: number;
+        totalDesigns: number;
+        totalAnalyses: number;
+        activeUsers: number;
+    };
+    dailyStats: {
+        _id: string;
+        count: number;
+    }[];
+}
+
 const adminApi = axios.create({
     baseURL: API_URL,
     headers: {
@@ -49,3 +62,12 @@ export const getUsers = async (page: number = 1, limit: number = 10): Promise<Pa
         throw new Error('Failed to fetch users');
     }
 };
+
+export const removeUser = async (userId: string): Promise<void> => {
+    try {
+        await adminApi.delete(`/users/${userId}`);
+    } catch (error) {
+        throw new Error('Failed to remove user');
+    }
+};
+
