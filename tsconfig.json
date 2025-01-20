@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
     "moduleResolution": "node",
     "resolveJsonModule": true,
     /* Visit https://aka.ms/tsconfig to read more about this file */
@@ -117,5 +123,8 @@
     /* Skip type checking all .d.ts files. */
     "jsx": "react"
   },
-  "include": ["src", "declarations.d.ts"]
+  "include": [
+    "src",
+    "declarations.d.ts"
+  ]
 }

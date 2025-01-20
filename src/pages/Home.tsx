@@ -2,6 +2,7 @@ import {FC, useContext} from 'react';
 import {ThemeContext} from '../services/contexts/ThemeContext';
 import FeatureCard from '../components/FeatureCard';
 import {Feature} from '../types/interfaces';
+import {useAuth} from '../services/contexts/AuthContext';
 
 import promptMoodboardDark from '../assets/prompt-moodboard-image.svg';
 import promptMoodboardLight from '../assets/prompt-moodboard-image-2.svg';
@@ -10,9 +11,24 @@ import imageMoodboardLight from '../assets/image-moodboard-image-2.svg';
 import designSuggestionsDark from '../assets/design-suggestions-image.svg';
 import designSuggestionsLight from '../assets/design-suggestions-image-2.svg';
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 
 const Home: FC = () => {
     const {theme} = useContext(ThemeContext);
+    const {isAuthenticated} = useAuth();
+    const navigate = useNavigate();
+
+    const handleFeatureClick = (featureRoute: string) => {
+        if (isAuthenticated) {
+            navigate(`/dashboard${featureRoute}`);
+        } else {
+            navigate('/login', {
+                state: {
+                    from: `/dashboard${featureRoute}`
+                }
+            });
+        }
+    };
 
     const features: Feature[] = [
         {
@@ -23,7 +39,8 @@ const Home: FC = () => {
             imageSrc: {
                 dark: promptMoodboardDark,
                 light: promptMoodboardLight
-            }
+            },
+            onClick: () => handleFeatureClick('?tab=prompt')
         },
         {
             title: "Image to Moodboard",
@@ -33,7 +50,8 @@ const Home: FC = () => {
             imageSrc: {
                 dark: imageMoodboardDark,
                 light: imageMoodboardLight
-            }
+            },
+            onClick: () => handleFeatureClick('?tab=image')
         },
         {
             title: "Design Suggestions",
@@ -43,7 +61,8 @@ const Home: FC = () => {
             imageSrc: {
                 dark: designSuggestionsDark,
                 light: designSuggestionsLight
-            }
+            },
+            onClick: () => handleFeatureClick('?tab=suggestions')
         }
     ];
 
@@ -80,7 +99,7 @@ const Home: FC = () => {
                         </p>
                         <a
                             href="#features"
-                            className={`inline-flex px-6 py-3 rounded-lg transition-colors duration-300 animate-[bounce_3s_ease-in-out_infinite] ${
+                            className={`inline-flex px-6 py-3 rounded-lg transition-colors duration-300 motion-safe:animate-[bounce_1s_ease-in-out_infinite] ${
                                 theme === 'dark' ? 'bg-white/10 hover:bg-white/20' : 'bg-slate-900/10 hover:bg-slate-900/20'
                             }`}
                         >
